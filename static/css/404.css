@@ -1,0 +1,166 @@
+.main_404 {
+    height: 100vh;
+
+
+    /*background*/
+    background: url(../img/Kat/icon.png) 0 / 50%,
+    radial-gradient(115% 93.35% at 77.19% 15.86%, rgba(229, 16, 54, 0.608) 0%, rgba(255, 15, 0, 0) 47.64%, rgba(255, 15, 0, 0) 100%),
+    radial-gradient(81.35% 68.09% at 16.56% 31.05%, rgba(20, 160, 196, 0.8) 38.78%, rgba(19, 167, 205, 0) 95.34%),
+    radial-gradient(49.65% 116.97% at 16.11% 91.9%, #FF8228 0%, rgba(239, 103, 5, 0) 74.72%),
+    radial-gradient(98.78% 65.95% at 80.17% 79.72%, rgba(166, 197, 53, 0.826354) 59.62%, rgba(160, 190, 53, 0) 92.95%, rgba(160, 190, 53, 0) 100%),
+    radial-gradient(80.42% 29% at 65.45% 43.07%, #FF88AC 0%, rgba(232, 128, 49, 0.984375) 0%, #FFFFFF 100%);
+}
+.main_box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    max-width: 1200px;
+    height: 100%;
+    margin: auto;
+}
+.main_404_left_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.left_text_h3 {
+    max-width: 470px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 43px;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 70px;
+}
+.left_text_btn {
+    width: 330px;
+    height: 45px;
+    background: #FFFFFF;
+    display: block;
+    /*???*/
+    mix-blend-mode: hard-light;
+    opacity: 0.8;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left_text_btn:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.left_text_btn_link {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 40px;
+    color: #0F6D85;
+    opacity: 0.8;
+    text-decoration: none;
+}
+.main_404_right_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.right_text_h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 300px;
+    line-height: 366px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-right: 100px;
+}
+
+@media screen and (max-width: 1025px) {
+    .main_box {
+        grid-template-columns: 1fr ;
+        grid-template-rows: 1fr 1fr;
+        height: 100%;
+    }
+    .main_404_right_text {
+        grid-row: 1;
+    }
+    .right_text_h2 {
+        font-size: 250px;
+        margin-right: 0;
+        line-height: 305px;
+    }
+    .left_text_h3 {
+        margin-bottom: 105px;
+        font-size: 30px;
+        max-width: 500px;
+        line-height: 36px;
+    }
+    .left_text_btn {
+        margin-bottom: 105px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .right_text_h2 {
+        font-size: 200px;
+        margin-right: 0;
+        line-height: 243px;
+    }
+    .left_text_h3 {
+        margin-bottom: 75px;
+        font-size: 25px;
+        max-width: 400px;
+        line-height: 30px;
+    }
+
+}
+@media screen and (max-width: 575px) {
+    .right_text_h2 {
+        font-size: 150px;
+        margin-right: 0;
+        line-height: 182px;
+    }
+    .left_text_h3 {
+        margin-bottom: 75px;
+        font-size: 20px;
+        line-height: 24px;
+        max-width: 280px;
+    }
+    .left_text_btn {
+        width: 255px;
+    }
+    .left_text_btn_link {
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 475px) {
+    .right_text_h2 {
+        font-size: 100px;
+        margin-right: 0;
+        line-height: 122px;
+    }
+    .left_text_h3 {
+        margin-bottom: 75px;
+        font-size: 15px;
+        line-height: 18px;
+        max-width: 210px;
+    }
+    .left_text_btn {
+        width: 185px;
+    }
+    .left_text_btn_link {
+        font-size: 15px;
+    }
+
+}

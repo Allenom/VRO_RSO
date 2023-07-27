@@ -1,0 +1,1341 @@
+.main * {
+  box-sizing: border-box;
+}
+.main {
+    overflow-x: hidden;
+}
+.section_wrap_home, .section_wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.section_contain {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 140px;
+  padding: 0 10px;
+}
+
+.section_box {
+  position: relative;
+}
+
+
+/* РСО */
+
+.rso_title {
+  font-size: 40px;
+  font-family: "Montserrat-SemiBold";
+  color: white;
+  margin-bottom: 10%;
+}
+
+.rso_text {
+  font-size: 24px;
+  font-family: "Montserrat-Medium";
+  color: white;
+  line-height: 40px;
+  margin-bottom: 10%;
+}
+
+.rso_bg {
+  background-color: #bbbcb5;
+  max-height: 720px;
+  position: relative;
+}
+
+.rso_linear {
+  background: linear-gradient(
+    90deg,
+    #14a0c4 60.42%,
+    rgba(20, 160, 196, 0) 100%
+  );
+  width: 50%;
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+}
+
+.rso_wrap {
+  display: flex;
+  width: 100%;
+  min-height: 650px;
+  position: relative;
+}
+
+.rso_box {
+  width: 41%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+.rso_img {
+  width: 78%;
+  position: absolute;
+  bottom: -3px;
+  right: 0;
+}
+
+.rso_img img {
+  width: 115%;
+}
+
+.rso_links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rso_link_left {
+  background: rgba(254, 254, 254, 0.8);
+  opacity: 0.75;
+  border: 1px solid #526ace;
+  border-radius: 50px;
+  padding: 10px 25px;
+  text-decoration: none;
+  color: #0f6d85;
+  font-size: 24px;
+  font-family: "Montserrat-Medium";
+}
+
+.rso_link_right {
+  background: rgba(20, 160, 196, 0.4);
+  border: 1px solid rgba(254, 254, 254, 0.5);
+  border-radius: 50px;
+  padding: 10px 25px;
+  text-decoration: none;
+  color: #eceff0;
+  font-size: 24px;
+  font-family: "Montserrat-Medium";
+}
+
+/* УЗНАЙ БОЛЬШЕ */
+
+.vlg_img {
+  width: 100%;
+}
+
+.vlg_box {
+  position: absolute;
+  top: 70px;
+  max-width: 600px;
+  right: 20px;
+}
+
+.vlg_text {
+  font-size: 24px;
+  color: white;
+  font-family: "Montserrat-Medium";
+  line-height: 40px;
+  padding-bottom: 50px;
+}
+
+.vlg_link {
+  font-size: 24px;
+  font-family: "Montserrat-Medium";
+  color: #a64217;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50px;
+  padding: 15px 20px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  max-width: 300px;
+}
+
+/* ПОДГОТОВИЛИ */
+
+.actions_card_wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.actions_card_box {
+  position: relative;
+}
+
+.card_text_box {
+  position: absolute;
+  width: 100%;
+  bottom: 6%;
+}
+
+.card_text_box p {
+  font-size: 40px;
+  line-height: 40px;
+  color: #ffffff;
+  font-family: "Montserrat-Medium";
+  text-align: center;
+}
+.card_back p {
+  font-size: 20px;
+  line-height: 45px;
+  color: #ffffff;
+  font-family: "Montserrat-Medium";
+  padding-left: 25px;
+  padding-top: 25px;
+}
+
+.card_img {
+  width: 100%;
+}
+
+.card {
+  width: 300px;
+  height: 317px;
+  position: relative;
+  perspective: 1000px;
+}
+
+.front,
+.card_back {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  transition: 1s all ease;
+  backface-visibility: hidden;
+}
+
+.card_back_learn {
+  background-color: #178889;
+  transform: rotateY(180deg);
+}
+
+.card_back_work {
+  background-color: #e76730;
+  transform: rotateY(180deg);
+}
+
+.card_back_travel {
+  background-color: #a2bf32;
+  transform: rotateY(180deg);
+}
+
+.card_back_friend {
+  background-color: #15a2c6;
+  transform: rotateY(180deg);
+}
+
+.card:hover .front {
+  transform: rotateY(180deg);
+}
+
+.card:hover .card_back {
+  transform: rotateY(360deg);
+}
+
+/* ВСТУПАЙ */
+
+.school {
+  width: 100%;
+}
+
+.school_link {
+  background: white;
+  opacity: 0.8;
+  border-radius: 50px;
+  color: #a84115;
+  font-size: 24px;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 5%;
+  text-decoration: none;
+  padding: 20px;
+  position: absolute;
+  font-family: "Montserrat-Medium";
+}
+
+/* НАПРАВЛЕНИЯ */
+
+.direction_wrap {
+  margin-bottom: 80px;
+}
+
+.direction_box img {
+  border-radius: 40px;
+  max-width: 120px;
+  margin-right: 10px;
+}
+
+.direction_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.rural_box,
+.conductor_box,
+.service_box,
+.medical_box,
+.teacher_box,
+.builder_box {
+  border-radius: 50px;
+  width: 360px;
+  display: flex;
+  margin-bottom: 60px;
+  background-color: #f5f5f5;
+}
+
+.rural_box {
+  border: 5px solid #e66730;
+}
+
+.conductor_box {
+  border: 5px solid #9ebf32;
+}
+
+.service_box {
+  border: 5px solid #159fc4;
+}
+
+.medical_box {
+  border: 5px solid #178788;
+}
+
+.teacher_box {
+  border: 5px solid #ea8030;
+}
+
+.builder_box {
+  border: 5px solid #f7cc25;
+}
+
+.rural_text {
+  max-width: 200px;
+}
+
+.direction_left_text {
+  font-size: 24px;
+  display: flex;
+  line-height: 40px;
+  align-items: center;
+  color: black;
+  font-family: "Montserrat-SemiBold";
+  text-decoration: none;
+}
+
+.direction_right_text {
+  font-size: 24px;
+  padding-left: 10px;
+  display: flex;
+  line-height: 40px;
+  align-items: center;
+  color: black;
+  font-family: "Montserrat-SemiBold";
+  text-decoration: none;
+}
+
+/* МЕРОПРИЯТИЯ */
+
+.section_contain_slider {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px 140px 10px;
+}
+
+.slick-dots li button:before {
+  font-size: 30px;
+  color: #454343;
+  opacity: 1;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #14a0c4;
+}
+
+.slick-dots li {
+  margin: 0 10px;
+}
+
+.slick-list {
+  z-index: 0;
+}
+
+.slick-dotted.slick-slider {
+  margin-bottom: 0;
+}
+
+.slick-dots {
+  bottom: -7%;
+}
+
+.slider_item img {
+  width: 100%;
+}
+
+.slider_prev {
+  position: absolute;
+  left: 2%;
+  z-index: 1;
+  transform: translate(0%, -50%);
+  top: 50%;
+  background-image: url(../img/Kat/prev.png);
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 85px;
+  cursor: pointer;
+}
+
+.slider_next {
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translate(0%, -50%);
+  z-index: 1;
+  background-image: url(../img/Kat/next.png);
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 85px;
+  cursor: pointer;
+}
+
+.slider_box {
+  position: relative;
+}
+
+.slider_event {
+  position: absolute;
+  right: 4%;
+  width: 350px;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translate(0%, -50%);
+  top: 50%;
+}
+
+.slider_subtitle h3 {
+  font-size: 50px;
+  line-height: 50px;
+  color: white;
+  font-family: "Montserrat-Regular";
+  text-align: center;
+}
+
+.slider_text {
+  font-size: 20px;
+  line-height: 46px;
+  color: white;
+  font-family: "Montserrat-Regular";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider_link_mr {
+  background: rgba(255, 228, 228, 0.74);
+  border-radius: 50px;
+  font-size: 24px;
+  line-height: 46px;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: block;
+  margin: auto;
+  text-align: center;
+  color: #104c55;
+  max-width: 250px;
+  font-family: "Montserrat-Medium";
+}
+
+.slider_link_febrary {
+  background: rgba(255, 228, 228, 0.74);
+  border-radius: 50px;
+  font-size: 24px;
+  line-height: 46px;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: block;
+  margin: auto;
+  text-align: center;
+  color: #0c807c;
+  max-width: 250px;
+  font-family: "Montserrat-Medium";
+}
+
+.slider_link_close {
+  background: rgba(255, 228, 228, 0.74);
+  border-radius: 50px;
+  font-size: 24px;
+  line-height: 46px;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: block;
+  margin: auto;
+  text-align: center;
+  color: #0b4fbe;
+  max-width: 250px;
+  font-family: "Montserrat-Medium";
+}
+
+
+/*Стили при наведении*/
+
+/* Блок 1 */
+
+.rso_link_left:hover {
+  opacity: 1;
+}
+
+.rso_link_right:hover {
+  outline: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Блок 2  */
+
+.vlg_link:hover {
+  background: white;
+}
+
+/* Блок 5 */
+
+.school_link:hover {
+  opacity: 1;
+}
+
+/* Блок 6 */
+
+.slider_link a:hover {
+  background: white;
+}
+
+
+
+
+/* ------------------------------------------АДАПТИВ------------------------------------ */
+@media (max-width: 1250px) {
+  /* Блок 1 */
+  .rso_img img {
+    width: 100%;
+  }
+
+  .rso_wrap {
+    min-height: 600px;
+  }
+
+  .rso_box {
+    width: 42%;
+  }
+  /* Блок 6 */
+}
+
+@media (max-width: 1180px) {
+  /* Блок 1 */
+  .rso_box {
+    width: 49%;
+  }
+
+  .rso_text {
+    max-width: 430px;
+  }
+
+  /*Блок 3 */
+  .card_text_box p {
+    font-size: 32px;
+  }
+
+  .card {
+    width: 280px;
+    height: 297px;
+  }
+  /* Блок 4 */
+
+  .direction_box {
+    justify-content: space-around;
+  }
+
+  /* Блок 6 */
+}
+
+@media (max-width: 1105px) {
+  /* Блок 4 */
+  .direction_box {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 1075px) {
+  /* Блок 1 */
+
+  .rso_wrap {
+    min-height: 550px;
+  }
+
+  .rso_box {
+    width: 48%;
+  }
+
+  .rso_title {
+    font-size: 36px;
+  }
+
+  .rso_text {
+    font-size: 22px;
+    max-width: 395px;
+  }
+
+  .rso_link_left,
+  .rso_link_right {
+    font-size: 22px;
+    padding: 10px 15px;
+  }
+
+  /* Блок 2 */
+
+  .vlg_box {
+    max-width: 500px;
+  }
+
+  .vlg_text {
+    font-size: 18px;
+    padding-bottom: 40px;
+  }
+
+  .vlg_link {
+    font-size: 18px;
+    padding: 10px 0;
+  }
+
+  /* Блок 3 */
+
+  .card {
+    width: 257px;
+    height: 272px;
+  }
+
+  .card_text_box p {
+    font-size: 30px;
+  }
+
+  .card_back p {
+    line-height: 32px;
+  }
+  /* Блок 5 */
+
+  .school_link {
+    padding: 15px;
+  }
+  /* Блок 6 */
+
+  .slider_event {
+    min-height: 400px;
+  }
+
+  .slider_subtitle h3 {
+    font-size: 46px;
+  }
+
+  .slider_link_mr,
+  .slider_link_febrary,
+  .slider_link_close {
+    padding: 5px 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .section_contain {
+    margin-bottom: 100px;
+  }
+  /* Блок 1 */
+
+  .rso_wrap {
+    min-height: 500px;
+  }
+
+  .rso_title {
+    font-size: 32px;
+  }
+
+  .rso_text {
+    max-width: 350px;
+  }
+
+  /* Блок 2 */
+
+  .vlg_box {
+    max-width: 450px;
+    top: 50px;
+  }
+
+  .vlg_text {
+    padding-bottom: 30px;
+  }
+
+  /* Блок 3 */
+
+  .card {
+    width: 215px;
+    height: 232px;
+  }
+
+  .card_text_box p {
+    font-size: 28px;
+  }
+
+  .card_back p {
+    font-size: 18px;
+    padding-top: 18px;
+    line-height: 20px;
+  }
+
+  /* Блок 5 */
+
+  .school_link {
+    padding: 10px;
+  }
+
+  /* Блок 6 */
+
+  .section_contain_slider {
+    padding: 0 10px 100px 10px;
+  }
+
+
+}
+
+@media (max-width: 885px) {
+  /* Блок 1 */
+
+  .rso_wrap {
+    min-height: 450px;
+  }
+
+  .rso_box {
+    width: 52%;
+  }
+
+  .rso_linear {
+    width: 55%;
+  }
+
+  /* Блок 2 */
+  .vlg_box {
+    max-width: 400px;
+    top: 20px;
+  }
+
+  .vlg_text {
+    font-size: 16px;
+  }
+
+  .vlg_link {
+    font-size: 16px;
+    max-width: 225px;
+  }
+  /* Блок 3 */
+
+  .card_text_box p {
+    font-size: 26px;
+  }
+
+  .card {
+    width: 200px;
+    height: 217px;
+  }
+
+  .card_back p {
+    font-size: 16px;
+    padding-top: 10px;
+    line-height: 22px;
+    padding-left: 10px;
+  }
+  /* Блок 5 */
+
+  .school_link {
+    font-size: 20px;
+  }
+  /* Блок 6 */
+
+  .slider_subtitle h3 {
+    font-size: 38px;
+  }
+
+  .slider_link_mr,
+  .slider_link_febrary,
+  .slider_link_close {
+    padding: 3px 0;
+    font-size: 22px;
+    max-width: 220px;
+  }
+
+  .slider_event {
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 785px) {
+  .section_contain {
+    margin-bottom: 70px;
+  }
+
+  /* Блок 1 */
+
+  .rso_box {
+    width: 58%;
+  }
+
+  .rso_wrap {
+    min-height: 400px;
+  }
+
+  .rso_title {
+    font-size: 30px;
+  }
+
+  .rso_text {
+    max-width: 273px;
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .rso_link_left {
+    font-size: 20px;
+  }
+
+  .rso_link_right {
+    font-size: 20px;
+  }
+
+  /* Блок 2 */
+  .vlg_box {
+    max-width: 350px;
+  }
+
+  .vlg_text {
+    line-height: 25px;
+    padding-bottom: 20px;
+  }
+
+  .vlg_link {
+    padding: 8px 0;
+    max-width: 215px;
+  }
+  /* Блок 3 */
+
+  .actions_card_wrap {
+    flex-wrap: wrap;
+    max-width: 650px;
+    margin: auto;
+  }
+
+  .card {
+    width: 320px;
+    height: 337px;
+  }
+
+  .card_text_box p {
+    font-size: 30px;
+  }
+
+  .card_back p {
+    font-size: 20px;
+    padding-top: 25px;
+    line-height: 42px;
+    padding-left: 20px;
+  }
+  /* Блок 5 */
+
+  .school_link {
+    font-size: 18px;
+  }
+  /* Блок 6 */
+
+  .slider_event {
+    min-height: 300px;
+    max-width: 300px;
+  }
+
+  .slider_subtitle h3 {
+    font-size: 32px;
+  }
+
+  .slider_link_mr,
+  .slider_link_febrary,
+  .slider_link_close {
+    padding: 0;
+    font-size: 20px;
+    max-width: 190px;
+  }
+
+  .slider_text {
+    font-size: 18px;
+    line-height: 40px;
+  }
+
+  .slick-dots {
+    bottom: -10%;
+  }
+
+  .slider_next,
+  .slider_prev {
+    right: 0;
+    background-size: 70%;
+    height: 65px;
+  }
+
+  .section_contain_slider {
+    padding: 0 10px 70px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* БЛОК ВРО С РОДИНОЙ МАТЕРЬЮ */
+  .section_box {
+    display: none;
+  }
+}
+
+@media (max-width: 755px) {
+  /* Блок 4 */
+  .rural_box,
+  .conductor_box,
+  .service_box,
+  .medical_box,
+  .teacher_box,
+  .builder_box {
+    margin-bottom: 20px;
+    border-radius: 40px;
+  }
+
+  .direction_box img {
+    border-radius: 30px;
+    max-width: 100px;
+  }
+
+}
+
+@media (max-width: 690px) {
+  /* Блок 1 */
+  .rso_wrap {
+    min-height: 350px;
+  }
+
+  .rso_title {
+    font-size: 26px;
+  }
+
+  .rso_text,
+  .rso_link_left,
+  .rso_link_right {
+    font-size: 18px;
+  }
+  /* Блок 2 */
+
+  .vlg_box {
+    max-width: 300px;
+    top: 6px;
+  }
+
+  .vlg_text {
+    line-height: 25px;
+    padding-bottom: 10px;
+  }
+
+  .vlg_link {
+    padding: 6px 0;
+    max-width: 200px;
+  }
+  /* Блок 3 */
+  .card {
+    width: 285px;
+    height: 302px;
+  }
+
+  .card_back p {
+    font-size: 18px;
+  }
+
+  /* Блок 5 */
+  .school_link {
+    font-size: 16px;
+    padding: 8px;
+  }
+  /* Блок 6 */
+  .slider_subtitle h3 {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .slider_event {
+    min-height: 250px;
+    max-width: 250px;
+  }
+
+  .slider_text {
+    line-height: 30px;
+  }
+
+  .slider_link_mr,
+  .slider_link_febrary,
+  .slider_link_close {
+    font-size: 18px;
+    line-height: 34px;
+  }
+
+  .slick-dots {
+    bottom: -12%;
+  }
+
+}
+
+@media (max-width: 615px) {
+  .section_contain {
+    margin-bottom: 50px;
+  }
+
+  /* Блок 1 */
+
+  .rso_wrap {
+    min-height: 300px;
+  }
+
+  .rso_box {
+    width: 60%;
+  }
+
+  .rso_title {
+    font-size: 24px;
+    margin-bottom: 5%;
+  }
+
+  .rso_text {
+    line-height: 24px;
+    margin-bottom: 5%;
+    max-width: 205px;
+    font-size: 16px;
+  }
+
+  .rso_link_left,
+  .rso_link_right {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+
+  /* Блок 2 */
+  .vlg_box {
+    max-width: 250px;
+    right: 15px;
+    top: 3px;
+  }
+
+  .vlg_text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .vlg_link {
+    font-size: 14px;
+    padding: 5px 0;
+    max-width: 170px;
+  }
+  /* Блок 3 */
+  .card {
+    width: 225px;
+    height: 242px;
+  }
+
+  .card_back p {
+    padding-top: 15px;
+    line-height: 26px;
+  }
+  /* Блок 5 */
+  .school_link {
+    padding: 6px 10px;
+  }
+  /* Блок 6 */
+
+  .slider_subtitle h3 {
+    font-size: 24px;
+  }
+
+  .slider_event {
+    min-height: 200px;
+    max-width: 200px;
+  }
+
+  .slider_link_mr,
+  .slider_link_febrary,
+  .slider_link_close {
+    line-height: 32px;
+    max-width: 170px;
+  }
+
+  .slider_next,
+  .slider_prev {
+    background-size: 50%;
+    height: 47px;
+    right: -10px;
+  }
+
+  .slick-dots li {
+    width: 15px;
+    height: 10px;
+  }
+
+  .section_contain_slider {
+    padding: 0 10px 50px 10px;
+  }
+
+
+}
+
+@media (max-width: 530px) {
+  /* Блок 1 */
+
+  .rso_box {
+    width: 65%;
+    justify-content: space-around;
+  }
+
+  .rso_title {
+    font-size: 22px;
+    max-width: 240px;
+  }
+
+  .rso_text {
+    display: none;
+  }
+
+  .rso_link_left,
+  .rso_link_right {
+    font-size: 14px;
+  }
+
+  .rso_wrap {
+    min-height: 250px;
+  }
+  /* Блок 2 */
+
+  .vlg_text_span {
+    display: none;
+  }
+
+  .vlg_box {
+    max-width: 219px;
+    top: 20px;
+  }
+  /* Блок 3 */
+  .card {
+    width: 200px;
+    height: 217px;
+  }
+
+  .actions_card_wrap {
+    max-width: 420px;
+  }
+
+  .card_text_box p {
+    font-size: 28px;
+  }
+
+  .card_back p {
+    line-height: 18px;
+  }
+  /* Блок 5 */
+
+  .school_link {
+    padding: 4px 10px;
+    font-size: 14px;
+  }
+  /* Блок 6 */
+
+  .slider_text_span {
+    display: none;
+  }
+
+  .slider_event {
+    min-height: 180px;
+    max-width: 156px;
+  }
+
+  .slider_text {
+    max-width: 140px;
+  }
+
+  .slider_next,
+  .slider_prev {
+    width: 45px;
+  }
+
+  .slick-dots li button:before {
+    font-size: 22px;
+  }
+
+  .slick-dots li {
+    width: 10px;
+  }
+
+}
+
+@media (max-width: 440px) {
+  .section_contain {
+    margin-bottom: 40px;
+  }
+
+  /* Блок 1 */
+  .rso_wrap {
+    min-height: 200px;
+  }
+
+  .rso_title {
+    font-size: 20px;
+  }
+
+  .rso_link_left,
+  .rso_link_right {
+    padding: 5px 5px;
+  }
+
+  .rso_box {
+    width: 79%;
+  }
+  /* Блок 2 */
+
+  .vlg_box {
+    max-width: 169px;
+    top: 15px;
+    right: 25px;
+  }
+
+  .vlg_text {
+    line-height: 17px;
+  }
+
+  .vlg_link {
+    padding: 4px 0;
+  }
+  /* Блок 3 */
+  .card {
+    width: 170px;
+    height: 187px;
+  }
+
+  .card_text_box p {
+    font-size: 24px;
+  }
+
+  .card_back p {
+    padding-top: 10px;
+    font-size: 14px;
+    padding-left: 15px;
+    line-height: 20px;
+  }
+
+  /* Блок 5 */
+
+  .school_link {
+    padding: 4px 5px;
+  }
+  /* Блок 6 */
+
+  .section_contain_slider {
+    padding: 0 10px 40px 10px;
+  }
+
+  .slider_subtitle h3 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .slider_link_mr,
+  .slider_link_febrary,
+  .slider_link_close {
+    font-size: 16px;
+    line-height: 26px;
+    max-width: 140px;
+  }
+
+  .slider_event {
+    min-height: 170px;
+  }
+
+  .slick-dots li button:before {
+    font-size: 20px;
+  }
+
+}
+
+@media (max-width: 385px) {
+  .section_contain {
+    margin-bottom: 20px;
+  }
+
+  /* Блок 2 */
+  .vlg_box {
+    max-width: 155px;
+    top: 3px;
+    right: 17px;
+  }
+
+  .vlg_text {
+    line-height: 15px;
+  }
+  /* Блок 3 */
+  .card {
+    width: 145px;
+    height: 162px;
+  }
+
+  .card_text_box p {
+    font-size: 20px;
+  }
+
+  .card_text_box {
+    bottom: 2%;
+  }
+
+  .card_back p {
+    padding-top: 2px;
+    padding-left: 10px;
+    line-height: 16px;
+  }
+  /* Блок 4 */
+
+  .direction_left_text {
+    font-size: 20px;
+  }
+  /* Блок 5 */
+
+  .school_link {
+    padding: 2px 10px;
+    width: 200px;
+  }
+  /* Блок 6 */
+
+  .section_contain_slider {
+    padding: 0 10px 25px 10px;
+  }
+
+  .slider_event {
+    min-height: 145px;
+    max-width: 135px;
+  }
+
+  .slider_text {
+    font-size: 16px;
+    max-width: 120px;
+  }
+
+  .slider_next,
+  .slider_prev {
+    width: 40px;
+  }
+
+  .slick-dots li button:before {
+    font-size: 14px;
+  }
+
+  .slick-dots li {
+    width: 5px;
+  }
+
+  .slick-dots {
+    bottom: -10%;
+  }
+}
+
+
+
+
