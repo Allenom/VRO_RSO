@@ -1,0 +1,28 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}Отряды{% endblock %}
+
+{% block content %}
+    <main class="main">
+            <h1 class="page_title">Отряды</h1>
+{% for detachment in detachments %}
+    <p>Название</p>
+    <p>{{detachment.name}}</p>
+    <p>Направление</p>
+    <p>{{detachment.area}}</p>
+    <p>Учебное заведение</p>
+    <p>{{detachment.institution}}</p>
+    {% if detachment.flag %}
+        <img style="height: 300px" class="article_img" src="{{ detachment.flag.url }}" alt="Флаг отряда">
+    {% endif %}
+    {% if detachment.emblem %}
+        <img style="height: 100px" class="article_img" src="{{ detachment.emblem.url }}" alt="Эмблема отряда">
+    {% endif %}
+    <p>Ссылка ВК</p>
+    <p>{{detachment.link_vk}}</p>
+    <p>Командир</p>
+    <p>{{detachment.commander.user.first_name}} {{detachment.commander.user.last_name}}</p>
+    <a href="{% url 'detachment' detachment_id=detachment.id%}" class="singup__btn" style="display: block; max-width: 110px">Подробнее</a>
+{% endfor %}
+    </main>
+{% endblock %}

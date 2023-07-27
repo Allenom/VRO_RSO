@@ -1,0 +1,25 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}404{% endblock %}
+{% block head %}{% load static %}<link rel="stylesheet" href="{% static 'css/404.css' %}">{% endblock %}
+{% block content %}
+    <main class="main_404">
+        <div class="main_box">
+            <div class="main_404_left_text">
+                <h3 class="left_text_h3">
+                    Ой! Эту страницу найти нельзя, зато можно поехать на целину.
+                </h3>
+                <span class="left_text_btn">
+                    <a href="/joining/detachments/" class="left_text_btn_link">
+                        Вступить в отряд
+                    </a>
+                </span>
+            </div>
+            <div class="main_404_right_text">
+                <h2 class="right_text_h2">
+                    404
+                </h2>
+            </div>
+        </div>
+    </main>
+{% endblock %}

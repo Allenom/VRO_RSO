@@ -1,0 +1,102 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}Мероприятия{% endblock %}
+{% block head %}{% load static %}<link rel="stylesheet" href="{% static 'css/events.css' %}">{% endblock %}
+{% block content %}
+    <main class="main">
+
+
+        <section class="line_up_wrapper"><!--Верхний блок-->
+            {% if not user.profile.position == '' and user.is_authenticated %}
+            <a href="/events/create/" style="padding-left: 20px ">Создать мероприятие</a>
+            {% endif %}
+            <div class="line_up">
+                <form class="search_form">
+                    <button type="submit" class="search_button"></button>
+                    <input type="text" class="search_area" placeholder="Поищем мероприятие?">
+                </form>
+
+                <div class="line_up_select_container">
+                    <div class="line_up_select_left">
+
+                            <select class="select_filter" name="format">
+                                <option value="">Формат</option>
+                                <option value="1">Онлайн</option>
+                                <option value="2">Оффлайн</option>
+                            </select>
+
+                        <select class="select_filter" name="size">
+                            <option value="">Масштаб</option>
+                            <option value="all_russian">Всероссийские</option>
+                            <option value="district">Окружные</option>
+                            <option value="regional">Региональные</option>
+                            <option value="headquarters">Штабные</option>
+                            <option value="squad">Отрядные</option>
+                        </select>
+                        <select class="select_filter" name="direct">
+                            <option value="">Направление</option>
+                            <option value="inteligence">Интеллектуальные</option>
+                            <option value="ceremonial">Торжественные</option>
+                            <option value="sport">Спортивные</option>
+                            <option value="volunteer">Волонтерские</option>
+                            <option value="entertainment">Развлекательные</option>
+                            <option value="competitive">Конкурсные</option>
+                            <option value="public">Общественные</option>
+                        </select>
+                        <button type="submit" class="cancel_filters_button">
+                            <img class="cancel_image" src="{% static 'img/events/close1.png' %}">
+                            <p class="cancel_text">Сбросить фильтры</p>
+                        </button>
+                    </div>
+                    <div class="line_up_select_right">
+                        <select class="select_filter" name="filter">
+                            <option value="">Сортировать по</option>
+                            <option value="">Актуальности</option>
+                            <option value>Популярности</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="list_block"><!--Нижний блок, список мероприятий-->
+
+
+            {% for event in events %}
+            <div class="event_card">
+                <a href="{% url 'event' event_id=event.id%}" class="event_card_image_wrapper">
+                    {% if event.photo %}
+                    <img class="event_card_image" src="{{event.photo.url}}">
+                    {% else %}
+                    <img class="event_card_image" src="{% static 'img/events/event1.png' %}">
+                    {% endif %}
+                </a>
+                <div class="event_container">
+                    <div class="event_card_filter_container">
+                        <div class="event_card_filter">
+                            {% for kind in event.kind.all %}
+                            <p class="event_card_filter_text">{{kind}}</p>
+                            {% endfor %}
+                            <p class="event_card_filter_text">{{event.scale}}</p>
+                            {% if event.form == "Онлайн"%}
+                            <p class="event_card_filter_text">Онлайн</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <a href="{% url 'event' event_id=event.id%}" class="event_card_name">{{event.name}}</a>
+                    <div class="event_card_place">
+                        <img class="event_card_small_pic" src="{% static 'img/events/direction_gps.png' %}" alt="">
+                        <p class="event_card_info_text">{{event.place}}</p>
+                    </div>
+                    <div class="event_card_time">
+                        <img class="event_card_small_pic" src="{% static 'img/events/clock_icon.png' %}" alt="">
+                        <p class="event_card_info_text">{{event.beginning_date}}  {{event.beginning_time|default:''}} </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </section>
+    </main>
+{% endblock %}

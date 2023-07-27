@@ -1,0 +1,277 @@
+{% extends 'layout/basic.html' %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal_profile.css' %}">
+{% endblock %}
+
+{% block title %}Мой отряд{% endblock %}
+
+{% block content %}
+    <main class="main">
+        <!-- Навигация -->
+        <section class="section_wrap">
+            <div class="section_box">
+                <div class="navigation">
+                    <ul class="navigation_list">
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/">Профиль</a></li>
+                        <li class="navigation_item"><a class="navigation_link navigation_link_now" href="/profile/detachment/">Мой отряд</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/events/">Мои мероприятия</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/settings/">Настройки</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Отряд -->
+        {% if detachment %}
+        {% for detachment in detachment%}
+        <section class="section_wrap">
+            <div class="troop_wrap">
+                <div class="troop_top">
+                    <div class="troop_top_left">
+                        <div class="troop_name">{{ detachment.name }}</div>
+                        <div class="troop_text">{{ detachment.area.name }}</div>
+                    </div>
+                    <div class="troop_top_right">
+                        <a target="_blank" class="profile_social_link" href="{{ detachment.link_vk }}" rel="nofollow"><img src="{% static 'img/profile/vk_blue.svg' %}" alt="vk"></a>
+                        {% if detachment.emblem %}
+                        <img class="troop_top_img_icon" src="{{ detachment.emblem.url }}" alt="icon">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="troop_description">
+                    <div>
+                        <div class="troop_box">
+                            <h4 class="squad_subtitle">Учебное заведение</h4>
+                            <div class="lk_text">{{detachment.institution}}</div>
+                        </div>
+                        <div class="troop_box">
+                            <h4 class="squad_subtitle">Об отряде</h4>
+                            <p class="lk_text">{{detachment.about|linebreaksbr}}</p>
+                        </div>
+                    </div>
+                    <div>
+                        {% if detachment.flag %}
+                        <img style="width:200px" src="{{ detachment.flag.url }}" alt="">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="squad_box">
+                    <div>
+                        <h4 class="squad_subtitle">Командир {{commander.user.username}}</h4>
+
+                        {% for commander in commander %}
+                        <div class="squad_commander_wrap">
+                            <div class="squad_commander_box">
+                                {% if commander.photo %}
+                                <img class="detachment_profile_image" src="{{ commander.photo.url }}" alt="Фото командира">
+                                {% else %}
+                                <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Фото командира">
+                                {% endif %}
+                                <div class="squad_profile_name">{{ commander.user.last_name|default:''  }} {{ commander.user.first_name|default:''  }} {{ commander.patronymic|default:''  }}</div>
+                            </div>
+                            <img class="squad_post_img" onclick='openThis({{commander.id}})' src="{% static 'img/profile/profile.svg' %}" alt="Кнопка профиля">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="squad_post_wrap">
+                        <div>
+                            <h4 class="squad_subtitle">Комиссар</h4>
+                            {% for commissar in commissar %}
+                            <div class="squad_post_box">
+                                {% if commissar.photo %}
+                                <img class="detachment_profile_image" src="{{ commissar.photo.url }}" alt="Фото комиссара">
+                                {% else %}
+                                <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Фото комиссара">
+                                {% endif %}
+                                <div class="squad_profile_name">{{ commissar.user.last_name|default:''  }} {{ commissar.user.first_name|default:''  }} {{ commissar.patronymic|default:''  }}</div>
+                                <img class="squad_post_img" onclick='openThis({{commissar.id}})' src="{% static 'img/profile/profile.svg' %}" alt="Кнопка профиля">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div>
+                            <h4 class="squad_subtitle">Мастер - методист</h4>
+                            {% for secretary in secretary %}
+                            <div class="squad_post_box">
+                                    {% if secretary.photo %}
+                                    <img class="detachment_profile_image" src="{{ secretary.photo.url }}" alt="master">
+                                    {% else %}
+                                    <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Фото мастер-методиста">
+                                    {% endif %}
+                                <div class="squad_profile_name">{{ secretary.user.last_name|default:''  }} {{ secretary.user.first_name|default:''  }} {{ secretary.patronymic|default:''  }}</div>
+                                <img class="squad_post_img" onclick='openThis({{secretary.id}})' src="{% static 'img/profile/profile.svg' %}" alt="Кнопка профиля">
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="troop_fighters">
+                    <h4 class="squad_subtitle">Все бойцы</h4>
+                    <div class="lk_text">Участники: {{count}}</div>
+                </div>
+                <div class="troop_fighters_amount scroll">
+                    {% for specialist in specialists %}
+                    <div class="squad_fighter_wrap">
+                        <div class="squad_commander_box">
+                            {% if specialist.photo %}
+                            <img class="detachment_profile_image" src="{{ specialist.photo.url }}" alt="Аватарка специалиста">
+                            {% else %}
+                            <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Аватарка профиля">
+                            {% endif %}
+                            <div class="squad_profile_name">{{ specialist.user.last_name|default:''  }} {{ specialist.user.first_name|default:''  }} {{ specialist.patronymic|default:''  }}</div>
+                        </div>
+                        <img class="squad_post_img" onclick='openThis({{specialist.id}})' src="{% static 'img/profile/profile.svg' %}" alt="Кнопка профиля">
+                    </div>
+                    {% endfor %}
+
+                    {% for warrior in warriors %}
+                    <div class="squad_fighter_wrap">
+                        <div class="squad_commander_box">
+                            {% if warrior.photo %}
+                            <img class="detachment_profile_image" src="{{ warrior.photo.url }}" alt="Аватарка бойца">
+                            {% else %}
+                            <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Аватарка профиля">
+                            {% endif %}
+                            <div class="squad_profile_name">{{ warrior.user.last_name|default:''  }} {{ warrior.user.first_name|default:''  }} {{ warrior.patronymic|default:''  }}</div>
+                        </div>
+                        <img class="squad_post_img" onclick='openThis({{warrior.id}})' src="{% static 'img/profile/profile.svg' %}" alt="Кнопка профиля">
+                    </div>
+                    {% endfor %}
+
+                    {% for candidate in candidates %}
+                    <div class="squad_fighter_wrap">
+                        <div class="squad_commander_box">
+                            {% if candidate.photo %}
+                            <img class="detachment_profile_image" src="{{ candidate.photo.url }}" alt="Аватарка кандидата">
+                            {% else %}
+                            <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Аватарка профиля">
+                            {% endif %}
+                            <div class="squad_profile_name">{{ candidate.user.last_name|default:''  }} {{ candidate.user.first_name|default:''  }} {{ candidate.patronymic|default:''  }}</div>
+                        </div>
+                        <img class="squad_post_img" onclick='openThis({{candidate.id}})' src="{% static 'img/profile/profile.svg' %}" alt="Кнопка профиля">
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <div class="btn_wrap"><button type="button" class="troop_btn">Покинуть отряд</button></div>
+            </div>
+        </section>
+
+        <!-- Модальное окно обратной связи-->
+        <section class="modal" id="modal_feedback">
+            <div class="modal_wrapper">
+                <form onsubmit="return false">
+                    <div class="modal_wrap_feedback">
+                        <h2 class="modal_title">Обратная связь</h2>
+                        <textarea class="modal_textarea" cols="85" rows="11" placeholder="Минимум 5 символов"
+                            data-countchar-limit="400"></textarea>
+                        <div class="modal_exit">
+                            <div class="modal_text">*Напиши пару слов о том, почему решил уйти из отряда.</div>
+                            <button disabled id="modal_btn_feedback" type="submit" class="modal_btn">Отправить</button>
+                        </div>
+                    </div>
+                    <div class="close_wrap">
+                        <button type="button" id="close_btn_feedback" class="close_btn">
+                            <img src="{% static 'img/profile/cross.png' %}" alt="cross_close" class="close_wrap_img">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- Модальное окно обратной связи конец-->
+
+        <!-- Второе окно обратной связи -->
+        <section class="modal" id="modal_feedback_thanks">
+            <div class="modal_feedback modal_wrapper">
+                <div class="modal_text_feedback">Спасибо, что оставил отзыв!</div>
+                <div class="modal_text_feedback">Жаль, что ты покинул отряд :(</div>
+                <div class="close_wrap">
+                    <button type="button" id="close_btn_feed" class="close_btn">
+                        <img src="{% static 'img/profile/cross.png' %}" alt="cross_close" class="close_wrap_img">
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Второе окно обратной связи конец-->
+
+        {% if detachment.commander.user.id == user.id %}
+        <h1 class="page_title">Для командира</h1>
+            {% if detachment.flag %}
+                <img style="height: 300px" class="article_img" src="{{ detachment.flag.url }}" alt="Флаг отряда">
+            {% endif %}
+            {% if detachment.emblem %}
+                <img style="height: 100px" class="article_img" src="{{ detachment.emblem.url }}" alt="Эмблема отряда">
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value = "Изменить">
+            </form>
+        {% endif %}
+
+        {% for member in members %}
+        <section class="modal" id="modal{{member.id}}">
+            <div class="modal_wrapper">
+                <div class="modal_wrap">
+                    <div class="modal_wrap_img">
+                        {% if member.photo %}
+                                    <img class="modal_img" src="{{ member.photo.url }}" alt="Фото профиля">
+                                    {% else %}
+                                    <img class="modal_img" src="{% static 'img/profile/profile.svg' %}" alt="Иконка профиля">
+                                    {% endif %}
+
+                    </div>
+                    <div class="modal_right">
+                        <div class="modal_right_top">
+                            <h3 class="modal_name">{{ member.user.last_name|default:''  }} {{ member.user.first_name|default:''  }} {{ member.patronymic|default:''  }}</h3>
+                            <a class="modal_social_link" href="{{member.link_vk}}" rel="nofollow"><img src="{% static 'img/profile/vk_blue.svg' %}" alt="vk"></a>
+                        </div>
+                        <div class="modal_right_info">
+                            <div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Учебное заведение</h4>
+                                    <div class="modal_text">{{ member.institution|default:''}}</div>
+                                </div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Отряд</h4>
+                                    <div class="modal_text">{{ member.detachment}}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Должность</h4>
+                                    <div class="modal_text">{{member.position_output}}</div>
+                                </div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Элекронная почта</h4>
+                                    <div class="modal_text">{{member.user.email}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal_right_wrap">
+                            <h4 class="modal_subtitle">О себе</h4>
+                            <p class="modal_text">
+                                {{member.about|linebreaksbr}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="close_wrap">
+                    <button type="button" class="close_btn">
+                        <img src="{% static 'img/profile/cross.png' %}" alt="cross_close" class="close_wrap_img">
+                    </button>
+                </div>
+            </div>
+        </section>
+        {% endfor %}
+    {% endfor %}
+    {% else %}
+        <p><a href="/joining/detachments">ВСТУПИ В ОТРЯД</a> УЖЕ СЕГОДНЯ, А ЗАВТРА БУДЕШЬ ПОЖИНАТЬ ПЛОДЫ</p>
+    {% endif %}
+    </main>
+
+<script src="{% static 'js/modal_personal.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,204 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js/slick/slick-theme.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'js/slick/slick.css' %}" />
+    <script type="text/javascript" src="{% static 'js/slick/slick.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+{% block content %}
+    <main class="main">
+        <!-- РСО -->
+        <section class="rso_bg">
+            <div class="rso_linear"></div>
+            <div class="section_wrap">
+                <div class="section_contain rso_wrap">
+                    <div class="rso_box">
+                        <h1 class="rso_title">Российские Студенческие Отряды</h1>
+                        <p class="rso_text">Если хочешь найти себе друзей, посетить новые места, а также найти работу на
+                            лето, тогда тебе к нам!</p>
+                        <div class="rso_links">
+                            <a class="rso_link_left" href="/joining/">Вступить</a>
+                            <a class="rso_link_right" href="/about/">Узнать подробнее</a>
+                        </div>
+                    </div>
+                    <div class="rso_img"><img src="{% static 'img/main/rso.png' %}" alt="rso girl"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- УЗНАЙ БОЛЬШЕ СДЕЛАЛА -->
+        <section class="section_wrap">
+            <div class="section_contain section_box">
+                <img class="vlg_img" src="{% static 'img/main/vlg.png' %}" alt="vlg">
+                <div class="vlg_box">
+                    <p class="vlg_text">Волгоградские студенческие отряды - это больше, чем просто работа. Здесь ты
+                        сможешь раскрыть свои
+                        способности, заявить о себе на всю страну и обрести свою маленькую семью.</p>
+                    <a class="vlg_link" href="/about/">Узнай о нас больше!</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ДЕЙСТВИЯ СДЕЛАЛА-->
+        <section class="section_wrap">
+            <div class="section_contain">
+                <div class="actions_card_wrap">
+                    <div class="card">
+                        <div class="actions_card_box front">
+                            <img class="card_img" src="{% static 'img/main/learn.webp' %}" alt="">
+                            <div class="card_text_box">
+                                <p>Учись</p>
+                            </div>
+                        </div>
+                        <div class="card_back card_back_learn">
+                            <p>Тебе предоставят бесплатное обучение по разным направлениям работы</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="actions_card_box front">
+                            <img class="card_img" src="{% static 'img/main/work.webp' %}" alt="">
+                            <div class="card_text_box">
+                                <p>Работай</p>
+                            </div>
+                        </div>
+                        <div class="card_back card_back_work">
+                            <p>Каждый член РСО имеет возможность побывать на целине - поработать некоторое время в
+                                выбранной по желанию организации</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="actions_card_box front">
+                            <img class="card_img" src="{% static 'img/main/travel.webp' %}" alt="">
+                            <div class="card_text_box">
+                                <p>Путешествуй</p>
+                            </div>
+                        </div>
+                        <div class="card_back card_back_travel">
+                            <p>Независимо от выбранного направления отряда ты сможешь обколесить всю Россию! </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="actions_card_box front">
+                            <img class="card_img" src="{% static 'img/main/friend.webp' %}" alt="">
+                            <div class="card_text_box">
+                                <p>Ищи друзей</p>
+                            </div>
+                        </div>
+                        <div class="card_back card_back_friend">
+                            <p>РСО - это новые знакомства, друзья, эмоции и воспоминания на всю оставшуюся жизнь!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- НАПРАВЛЕНИЯ СДЕЛАЛА-->
+        <section class="section_wrap">
+            <div class="section_contain direction_wrap">
+                <div class="direction_box">
+
+                    <div class="conductor_box">
+
+                        <a class="direction_left_text" href="/joining/detachments/"><img src="{% static 'img/main/conductor.png' %}" alt="">Отряды проводников</a>
+                    </div>
+                    <div class="medical_box">
+
+                        <a class="direction_left_text" href="/joining/detachments/"><img src="{% static 'img/main/medical.png' %}" alt="">Медицинские отряды</a>
+                    </div>
+                    <div class="rural_box">
+
+                        <a class="direction_left_text" href="/joining/detachments/"><img src="{% static 'img/main/rural.png' %}" alt="">Сельхоз отряды</a>
+                    </div>
+                    <div class="teacher_box">
+
+                        <a class="direction_left_text" href="/joining/detachments/"><img src="{% static 'img/main/teacher.png' %}" alt="">Педагогические отряды</a>
+                    </div>
+                    <div class="builder_box">
+
+                        <a class="direction_left_text" href="/joining/detachments/"><img src="{% static 'img/main/builder.png' %}" alt="">Строительные отряды</a>
+                    </div>
+                    <div class="service_box">
+
+                        <a class="direction_left_text" href="/joining/detachments/"><img src="{% static 'img/main/service.png' %}" alt="">Сервисные отряды</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- ВСТУПАЙ СДЕЛАЛА-->
+        <section class="section_wrap">
+            <div class="section_contain section_box">
+                <img class="school" src="{% static 'img/main/school.png' %}" alt="school people">
+                <div class="1"></div>
+                <a class="school_link" href="/joining/">Быстрее вступай к нам!</a>
+            </div>
+        </section>
+
+        <!-- МЕРОПРИЯТИЯ СДЕЛАЛА -->
+        <section class="section_wrap">
+            <div class="section_contain_slider">
+                <div class="slider_wrap">
+                    <div class="slider_box">
+                        <div class="slider_item">
+                            <img src="{% static 'img/main/msANDmr.png' %}">
+                        </div>
+                        <div class="slider_event">
+                            <div class="slider_subtitle">
+                                <h3>Мисс и Мистер РСО</h3>
+                            </div>
+                            <div class="slider_text">
+                                <span class="slider_text_span">Место:</span>
+                                <span>Время: 09.05.23 17:00</span>
+                                <span class="slider_text_span">Организатор:</span>
+                                <span class="slider_text_span">Описание:</span>
+                            </div>
+                            <div class="slider_link"><a class="slider_link_mr" href="#">Участвовать</a></div>
+                        </div>
+                    </div>
+                    <div class="slider_box">
+                        <div class="slider_item">
+                            <img src="{% static 'img/main/febrary.png' %}">
+                        </div>
+                        <div class="slider_event">
+                            <div class="slider_subtitle">
+                                <h3>День РСО</h3>
+                            </div>
+                            <div class="slider_text">
+                                <span class="slider_text_span">Место:</span>
+                                <span>Время: 12.05.23</span>
+                                <span class="slider_text_span">Организатор:</span>
+                                <span class="slider_text_span">Описание:</span>
+                            </div>
+                            <div class="slider_link"><a class="slider_link_febrary" href="#">Участвовать</a></div>
+                        </div>
+                    </div>
+                    <div class="slider_box">
+                        <div class="slider_item">
+                            <img src="{% static 'img/main/close.png' %}">
+                        </div>
+                        <div class="slider_event">
+                            <div class="slider_subtitle">
+                                <h3>Закрытие семестра</h3>
+                            </div>
+                            <div class="slider_text">
+                                <span class="slider_text_span">Место:</span>
+                                <span>Время: 17.05.23</span>
+                                <span class="slider_text_span">Организатор:</span>
+                                <span class="slider_text_span">Описание:</span>
+                            </div>
+                            <div class="slider_link"><a class="slider_link_close" href="#">Участвовать</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="{% static 'js/slider_home.js' %}"></script>
+{% endblock %}

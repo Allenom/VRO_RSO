@@ -1,0 +1,44 @@
+{% extends 'layout/basic.html' %}
+{% block title %}Вход{% endblock %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block content %}
+<main class="main">
+
+
+    <form class="main__form" method="post">
+        {% csrf_token %}
+        <h3 class="form__h3">Вход</h3>
+        <div style="color:red;">{{ form.non_field_errors }}</div>
+
+        <span class="form__wrap">
+            <label for="id_username" class="form__label">Логин</label>
+            <div style="color:red;">{{ form.username.errors }}</div>
+            <input type="text" name="username" id="id_username" class="form__input" value="{% if not form.username.value == None %}{{form.username.data}}{% endif %}" required >
+        </span>
+
+        <span class="form__wrap">
+            <label for="id_password" class="form__label">Пароль</label>
+            <div style="color:red;">{{ form.password.errors }}</div>
+            <input type="password" name="password" id="id_password" class="form__input" required>
+        </span>
+
+        <div class="form__links">
+            <span class="form__checkbox_wrapper">
+                <label for="form-checkbox2" class="form__checkbox">
+                    <input type="checkbox" name="checkTrue2" id="form-checkbox2" value="true">
+                    <span class="checkbox__p ">Запомнить меня</span>
+                </label>
+            </span>
+            <a href="#" class="link">Забыли пароль?</a>
+        </div>
+
+        <input type="submit" name="logIn" id="form-login-btn" class="form__btn" value="Войти">
+
+
+        <p class="form__description">Нет аккаунта? <a href="/signup/" class="description__span">Зарегистрироваться</a></p>
+    </form>
+</main>
+{% endblock %}

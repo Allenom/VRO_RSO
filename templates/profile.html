@@ -1,0 +1,245 @@
+{% extends 'layout/basic.html' %}
+{% block title %}Профиль{% endblock %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="main">
+
+    {% if user.is_authenticated %}
+                <!-- Навигация -->
+        <section class="section_wrap">
+            <div class="section_box">
+                <div class="navigation">
+                    <ul class="navigation_list">
+                        <li class="navigation_item"><a class="navigation_link navigation_link_now" href="/profile/">Профиль</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/detachment/">Мой отряд</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/events/">Мои мероприятия</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/settings/">Настройки</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Профиль -->
+        <section class="section_wrap">
+            <div class="profile">
+                <div class="profile_left">
+                    {% if user.profile.photo %}
+                    <img class="profile_left_img" src="{{user.profile.photo.url}}" alt="profile_photo">
+                    {% else %}
+                    <img class="profile_left_img" src="{% static 'img/profile/profile.svg' %}" alt="profile_photo">
+                    {% endif %}
+
+                    <div class="profile_left_points">
+                        <div>Баллы участника:</div>
+                        <div>{{points}}</div>
+                    </div>
+                    <div class="profile_left_payment">
+                        <div>Членский взнос:</div>
+                        {% if user.profile.membership_fee %}<div class="profile_left_payment_status">Оплачен </div>{% else %}<div class="profile_left_payment_status_bad"> Не оплачен </div>{% endif %}
+                    </div>
+                    <a class="profile_left_question" href="#">Как оплатить членский взнос?</a>
+                </div>
+                <div class="profile_right">
+                    <div class="profile_right_top">
+                        <h3 class="profile_name">{{ user.last_name|default:'' }} {{ user.first_name|default:'' }} {{ user.profile.patronymic|default:'' }}</h3>
+                        <a target="_blank" class="profile_social_link" href="{{ user.profile.link_vk|default:'' }} " rel="nofollow"><img src="{% static 'img/profile/vk_blue.svg' %}" alt="vk"></a>
+                    </div>
+                    <div class="profile_right_info">
+                        <div style="padding-right: 5px;">
+                            <div class="profile_right_wrap">
+                                <h4 class="profile_subtitle">Учебное заведение</h4>
+                                <div class="lk_text">{{ user.profile.institution|default:'' }}</div>
+                            </div>
+                            <div class="profile_right_wrap">
+                                <h4 class="profile_subtitle">Отряд</h4>
+                                <div class="lk_text">{{ user.profile.detachment|default:'' }}</div>
+                            </div>
+                            <div class="profile_right_wrap">
+                                <h4 class="profile_subtitle">Должность</h4>
+                                <div class="lk_text">{{ user.profile.position_output|default:'' }}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="profile_right_wrap">
+                                <h4 class="profile_subtitle">Логин</h4>
+                                <div class="lk_text">{{ user.username }}</div>
+                            </div>
+                            <div class="profile_right_wrap">
+                                <h4 class="profile_subtitle">Элекронная почта</h4>
+                                <div class="lk_text">{{ user.email|default:'' }}</div>
+                            </div>
+                            <div class="profile_right_wrap">
+                                <h4 class="profile_subtitle">Номер телефона</h4>
+                                <div class="lk_text">{{ user.profile.telephone|default:'' }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile_right_wrap ">
+                        <h4 class="profile_subtitle">О себе</h4>
+                        <p class="lk_text about scroll">
+                            {{ user.profile.about|default:''|linebreaksbr }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Мероприятия -->
+        <section class="section_wrap">
+            <div class="events">
+                <h2 class="events_title">Последние мероприятия</h2>
+                {% if marks %}
+                    <div class="events_wrap_img">
+                        {% for mark in marks %}
+                        <a class="events_img" href="{% url 'event' event_id=mark.event.id %}">
+                        {% if mark.event.photo %}
+                            <img style="width:100%;border-radius: 50px;" src="{{mark.event.photo.url}}" alt="Картинка мероприятия">
+                        {% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <a class="evets_link" href="/profile/events/">Показать все</a>
+                {% else %}
+                    <a class="evets_link" href="/events/">Участвуйте в мероприятиях</a>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Отряд -->
+        <section class="section_wrap">
+            <div class="squad">
+                <h2 class="squad_title">Мой отряд</h2>
+                <div class="squad_wrap">
+                    <div class="squad_name">{{ user.profile.detachment|default:'' }}</div>
+                    <div >
+                        <div>
+                            <h4 class="squad_subtitle">Командир</h4>
+                            {% for commander in commander %}
+                            <div class="squad_commander_wrap">
+                                <div class="squad_commander_box">
+                                    {% if commander.photo %}
+                                    <img class="detachment_profile_image" src="{{ commander.photo.url }}" alt="Фото командира">
+                                    {% else %}
+                                    <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Фото комиссара">
+                                    {% endif %}
+                                    <div class="squad_profile_name">{{ commander.user.last_name|default:''  }} {{ commander.user.first_name|default:''  }} {{ commander.patronymic|default:''  }}</div>
+                                </div>
+                                <img class="squad_post_img" onclick='openThis({{commander.id}})' src="{% static 'img/profile/profile.svg' %}" alt="profile">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="squad_post_wrap">
+                            <div>
+                                <h4 class="squad_subtitle">Комиссар</h4>
+                                {% for commissar in commissar %}
+                                <div class="squad_post_box">
+                                    {% if commissar.photo %}
+                                    <img class="detachment_profile_image" src="{{ commissar.photo.url }}" alt="Фото комиссара">
+                                    {% else %}
+                                    <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Фото комиссара">
+                                    {% endif %}
+                                    <div class="squad_profile_name">{{ commissar.user.last_name|default:''  }} {{ commissar.user.first_name|default:''  }} {{ commissar.patronymic|default:''  }}</div>
+                                    <img class="squad_post_img" onclick='openThis({{commissar.id}})' src="{% static 'img/profile/profile.svg' %}" alt="profile">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div>
+                                <h4 class="squad_subtitle">Мастер - методист</h4>
+                                {% for secretary in secretary %}
+                                <div class="squad_post_box">
+                                    {% if secretary.photo %}
+                                    <img class="detachment_profile_image" src="{{ secretary.photo.url }}" alt="master">
+                                    {% else %}
+                                    <img class="detachment_profile_image" src="{% static 'img/profile/profile.svg' %}" alt="Фото мастер-методиста">
+                                    {% endif %}
+                                    <div class="squad_profile_name">{{ secretary.user.last_name|default:''  }} {{ secretary.user.first_name|default:''  }} {{ secretary.patronymic|default:''  }}</div>
+                                    <img class="squad_post_img" onclick='openThis({{secretary.id}})' src="{% static 'img/profile/profile.svg' %}" alt="profile">
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="evets_link" href="/profile/detachment/">Показать все</a>
+
+            </div>
+        </section>
+
+        <!-- Модальное окно профиля-->
+        {% for member in members %}
+        <section class="modal" id="modal{{member.id}}">
+            <div class="modal_wrapper">
+                <div class="modal_wrap">
+                    <div class="modal_wrap_img">
+                        {% if member.photo %}
+                                    <img class="modal_img" src="{{ member.photo.url }}" alt="Фото профиля">
+                                    {% else %}
+                                    <img class="modal_img" src="{% static 'img/profile/profile.svg' %}" alt="Иконка профиля">
+                                    {% endif %}
+
+                    </div>
+                    <div class="modal_right">
+                        <div class="modal_right_top">
+                            <h3 class="modal_name">{{ member.user.last_name|default:''  }} {{ member.user.first_name|default:''  }} {{ member.patronymic|default:''  }}</h3>
+                            <a class="modal_social_link" href="{{member.link_vk}}" rel="nofollow"><img src="{% static 'img/profile/vk_blue.svg' %}" alt="vk"></a>
+                        </div>
+                        <div class="modal_right_info">
+                            <div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Учебное заведение</h4>
+                                    <div class="modal_text">{{ member.institution|default:''}}</div>
+                                </div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Отряд</h4>
+                                    <div class="modal_text">{{ member.detachment}}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Должность</h4>
+                                    <div class="modal_text">{{member.position_output}}</div>
+                                </div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Элекронная почта</h4>
+                                    <div class="modal_text">{{member.user.email}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal_right_wrap">
+                            <h4 class="modal_subtitle">О себе</h4>
+                            <p class="modal_text">
+                                {{member.about|linebreaksbr}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="close_wrap">
+                    <button type="button" class="close_btn">
+                        <img src="{% static 'img/profile/cross.png' %}" alt="cross_close" class="close_wrap_img">
+                    </button>
+                </div>
+            </div>
+        </section>
+        {% endfor %}
+        <!-- Модальное окно профиля конец-->
+
+    {% else %}
+    <div class="header_signup">
+        <form action="/login">
+        <button  type="submit" class="singup__btn">
+            <img src="{% static 'img/basic/button_icon.svg' %}" alt="" class="singup__icon">
+            Войти
+        </button>
+        </form>
+    </div>
+    {% endif %}
+
+    </main>
+<script src="{% static 'js/modal_personal.js' %}"></script>
+
+{% endblock %}

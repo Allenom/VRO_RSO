@@ -1,0 +1,251 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}Мероприятие{% endblock %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/event.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="main" style="padding-top:0px;">
+{% for event in event %}
+
+        <section class="event_section">
+            {% for admin in admin %}
+            <a href="{% url 'event_edit' pk=event.id %}">РЕДАКТИРОВАТЬ</a>
+            {% endfor %}
+            <div class="event__header">
+                <div class="header__left">
+                    <h2 class="header__left__h2">
+                        {{event.name}}
+                    </h2>
+                    <span class="header__left_wrap">
+                        {% for kind in event.kind.all %}
+                        <span class="span_tag">
+                            {{kind}}
+                        </span>
+                        {% endfor %}
+                        <span class="span_tag">
+                            {{event.scale}}
+                        </span>
+                        {% if event.form == "Онлайн"%}
+                        <span class="span_tag">
+                            Онлайн
+                        </span>
+                        {% endif %}
+                    </span>
+                    <span class="header__left_data">
+                        <img src="{% static 'img/event/place_icon.svg' %}" alt="place">
+                        <h4 class="data__h4">
+                            {{ event.place }}
+                        </h4>
+                    </span>
+                    <span class="header__left_data">
+                        <img src="{% static 'img/event/time_icon.svg' %}" alt="time">
+                        <h4 class="data__h4">
+                            {{ event.beginning_date }} {{ event.beginning_time|default:'' }}{% if event.ending_date %} - {{ event.ending_date|default:'' }}{% endif %}
+                        </h4>
+                    </span>
+
+                    <span class="header__left_data2">
+                        <h3 class="data2__h3">Организатор </h3>
+                        <span class="data2_wrap">
+                            <p class="data2_wrap__p">
+                                {{ event.organizer }}
+                            </p>
+                        </span>
+                    </span>
+
+                    <span class="header__left_data2">
+                        <h3 class="data2__h3">Контакт организатора </h3>
+                        <span class="data2_wrap" onclick='openThis(1)'>
+                            {% if contact.photo %}
+                                <img class="data2_wrap__img" src="{{ contact.photo.url }}" alt="Фото профиля">
+                                {% else %}
+                            <img src="{% static 'img/profile/profile.svg' %}" alt="Иконка профиля" class="data2_wrap__img">
+                            {% endif %}
+                            <p class="data2_wrap__p">
+                                {{ contact.user.last_name|default:''  }} {{ contact.user.first_name|default:''  }} {{ contact.patronymic|default:''  }}
+                            </p>
+                            <img class="data2_wrap__img2" onclick='openThis(1)' src="{% static 'img/profile/profile.svg' %}" alt="Кнопка профиля">
+                        </span>
+                    </span>
+                    <form action="{% url 'event_take_part' event_id=event.id%}">
+                    {% if user.is_authenticated %}
+                        {% if part|length < 1 %}
+                            <input type="submit" class="header__left__btn" value="Участвовать">
+                        {% else %}
+                            {% for part in part %}
+                                {% if part.deleted %}
+                                    <input type="submit" class="header__left__btn" value="Участвовать">
+                                {% else %}
+                                    <input type="submit" class="header__left__btn__on" value="Отменить участие">
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% else %}
+                        <a href="/login/" class="header__left__btn" style="text-decoration: none; display: block; text-align: center;">Войти в профиль</a>
+                    {% endif %}
+                    </form>
+                </div>
+
+                <!--right part-->
+                <div class="header__right">
+
+                    {% if event.photo %}
+                        <img class="header__right_img" src="{{ event.photo.url }}" alt="Изображение мероприятия">
+                    {% else %}
+                    <img class="header__right_img" src="{% static 'img/event/event_img.png' %}">
+                    {% endif %}
+
+                    <div class="header__right__block__all">
+                        <div class="header__right__block">
+                            <h3 class="data2__h3 block__h3">
+                                Уже идут
+                            </h3>
+                            <span class="block__wrap">
+                                {% if more == -5 %}
+                                <img src="{% static 'img/profile/profile.svg' %}" alt="user image" class="block__wrap_img">
+                                {% endif %}
+                                {% for going in goings %}
+                                    {% if going.profile.photo %}
+                                <img src="{{ going.profile.photo.url }}" alt="фото профиля" class="block__wrap_img">
+                                    {% else %}
+                                <img src="{% static 'img/profile/profile.svg' %}" alt="user image" class="block__wrap_img">
+                                    {% endif %}
+                                {% endfor %}
+                                {% if more > 0 %}
+                                <p class="block__wrap_p data2_wrap__p">и ещё <span class="block__wrap_p_span">{{more}}</span></p>
+                                {% endif %}
+                            </span>
+
+                        </div>
+                        <div class="header__right__block">
+                            <p class="data2__h3 block__h3">
+                                Поделиться
+                            </p>
+                            <span class="block__wrap style2">
+                                <a href="http://vk.com/share.php?url=http://92.255.78.40:8000/events/{{event.id}}/" target="_blank" rel="nofollow"
+                                   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">
+                                        <img src="{% static 'img/event/VK_white.svg' %}" alt="vk" class="block__wrap_img2">
+                                </a>
+                                <a href="https://t.me/share/url?url=http://92.255.78.40:8000/events/{{event.id}}/" target="_blank" rel="nofollow">
+                                    <img src="{% static 'img/event/Telegramm_white.svg' %}" alt="tg" class="block__wrap_img2">
+                                </a>
+                                <a href="https://api.whatsapp.com/send?text=http://92.255.78.40:8000/events/{{event.id}}/" target="_blank" rel="nofollow">
+                                    <img src="{% static 'img/event/WhatsApp_white.svg' %}" alt="wa" class="block__wrap_img2">
+                                </a>
+                                <a href="" >
+                                    <img src="{% static 'img/event/content_copy_white.svg' %}" alt="copy" class="block__wrap_img2" id="copy_button">
+                                </a>
+                                <p id="link_field" style="display: none;">http://92.255.78.40:8000/events/{{event.id}}/</p>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!--part description event-->
+            <div class="event__main">
+                <h2 class="main__h2">
+                    О мероприятии
+                </h2>
+
+                <div class="main__wrapper">
+                    <h3 class="main__wrapper_h3">
+                        {{event.title}}
+                    </h3>
+                    <div class="main__wrapper_images">
+                        <img class="main__wrapper_images_item" src="{% static 'img/event/event_img.png' %}" alt="">
+                        <img class="main__wrapper_images_item" src="{% static 'img/event/event_img.png' %}" alt="">
+                        <img class="main__wrapper_images_item" src="{% static 'img/event/event_img.png' %}" alt="">
+                    </div>
+
+                </div>
+
+                <div class="main__description">
+                {{event.content|linebreaksbr}}
+
+                </div>
+            </div>
+        </section>
+
+        <section class="modal" id="modal1">
+            <div class="modal_wrapper">
+                <div class="modal_wrap">
+                    <div class="modal_wrap_img">
+                        {% if contact.photo %}
+                                    <img class="modal_img" src="{{ contact.photo.url }}" alt="Фото профиля">
+                                    {% else %}
+                                    <img class="modal_img" src="{% static 'img/profile/profile.svg' %}" alt="Иконка профиля">
+                                    {% endif %}
+
+                    </div>
+                    <div class="modal_right">
+                        <div class="modal_right_top">
+                            <h3 class="modal_name">{{ contact.user.last_name|default:''  }} {{ contact.user.first_name|default:''  }} {{ contact.patronymic|default:''  }}</h3>
+                            <a class="modal_social_link" href="{{contact.link_vk}}" rel="nofollow"><img src="{% static 'img/profile/vk_blue.svg' %}" alt="vk"></a>
+                        </div>
+                        <div class="modal_right_info">
+                            <div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Учебное заведение</h4>
+                                    <div class="modal_text">{{ contact.institution|default:''}}</div>
+                                </div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Отряд</h4>
+                                    <div class="modal_text">{{ contact.detachment}}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Должность</h4>
+                                    <div class="modal_text">{{contact.position_output}}</div>
+                                </div>
+                                <div class="modal_right_wrap">
+                                    <h4 class="modal_subtitle">Элекронная почта</h4>
+                                    <div class="modal_text">{{contact.user.email}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal_right_wrap">
+                            <h4 class="modal_subtitle">О себе</h4>
+                            <p class="modal_text">
+                                {{contact.about|linebreaksbr}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="close_wrap">
+                    <button type="button" class="close_btn">
+                        <img src="{% static 'img/profile/cross.png' %}" alt="cross_close" class="close_wrap_img">
+                    </button>
+                </div>
+            </div>
+        </section>
+
+{% endfor %}
+    </main>
+
+    <script src="{% static 'js/modal_personal.js' %}"></script>
+    <script>
+          function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+          }
+
+          // copy coupone code to clipboard
+          $("#copy_button").on("click", function() {
+            copyToClipboard("#link_field");
+            // $(".coupon-alert").fadeIn("slow");
+          });
+
+    </script>
+{% endblock %}

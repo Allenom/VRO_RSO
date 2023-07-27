@@ -1,0 +1,20 @@
+{% extends 'layout/basic.html' %}
+{% block title %}В разработке{% endblock %}
+
+{% block head %}
+
+{% load static %}<link rel="stylesheet" href="{% static 'css/coming_soon.css' %}">
+
+{% endblock %}
+
+{% block content %}
+{% load static %}
+    <main class="main_404 main_404_wrap">
+        <div class="wrapper_404">
+            <div class="text_404">Приносим свои извинения,</div>
+            <div class="text_404">данная страница находится в разработке!</div>
+            <div class="text_404">НО с нашей команды сходит 7 потов,</div>
+            <div class="text_404">чтобы как можно быстрее все закончить:)</div>
+        </div>
+    </main>
+{% endblock %}

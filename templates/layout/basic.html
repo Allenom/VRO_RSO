@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Страница в разработке {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/basic.css' %}">
+
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <header class="header">
+        <div class="header_wrap">
+
+            <div class="header_logos">
+                <a href="/"><img src="{% static 'img/Kat/logo_vro.svg' %}" alt="logo"></a>
+                <img src="{% static 'img/Kat/logo_rso.svg' %}" alt="logo1" class="logo1">
+            </div>
+
+            <div class="header_box">
+                <div class="container header__container">
+                    <div class="menu-burger__header">
+                        <span></span>
+                    </div>
+                    <nav class="header__nav">
+                        <ul class="menu header__menu topmenu menu_home">
+                            <li class="hover_link"><a class="navigation__link" href="/">Главная</a></li>
+                            <li class="hover_link"><a href="/about/" class="down navigation__link">О нас</a>
+                                <ul class="submenu ul_about">
+                                    <li><a class="header_link navigation__link" href="/about/">Российские Студенческие
+                                            Отряды</a></li>
+                                    <li><a class="header_link navigation__link" href="/about/">Волгоградское Региональное
+                                            Отделение</a></li>
+                                    <li><a class="header_link navigation__link" href="/about/contacts/">Контакты</a></li>
+                                    <li><a class="header_link navigation__link" href="/about/gallery/">Галерея</a></li>
+                                    <li><a class="header_link navigation__link" href="/about/news/">Новости</a></li>
+                                </ul>
+                            </li>
+                            <li class="hover_link"><a href="/events/" class="down navigation__link">Мероприятия</a>
+                                <ul class="submenu ul_events">
+                                    <li><a class="header_link navigation__link" href="/events/">Поиск по категориям</a></li>
+                                    <li><a class="header_link navigation__link" href="/events/">Календарь мероприятий</a></li>
+                                    <li><a class="header_link navigation__link" href="/profile/events/">Мои мероприятия</a></li>
+                                </ul>
+                            </li>
+                            <li class="hover_link"><a href="/joining/" class="down navigation__link">Вступление</a>
+                                <ul class="submenu ul_entry">
+                                    <li><a class="header_link navigation__link" href="/joining/">Как вступить</a></li>
+                                    <li><a class="header_link navigation__link" href="/joining/">Направления</a></li>
+                                    <li><a class="header_link navigation__link" href="/joining/detachments/">Отряды</a></li>
+                                </ul>
+                            </li>
+                            <li class="hover_link"><a href="/employment/" class="down navigation__link">Трудоустройство</a>
+                                <ul class="submenu ul_job">
+                                    <li><a class="header_link navigation__link" href="/employment/">Общая информация</a></li>
+                                    <li><a class="header_link navigation__link" href="/employment/">Объекты</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="acor-container header__menu topmenu">
+                            <div class="acor_a_wrap">
+                                <a class="acor_a" href="/">Главная</a>
+                            </div>
+                            <input type="checkbox" name="acor" id="acor2" />
+                            <label for="acor2">О нас</label>
+                            <div class="acor-body">
+                                <a class="header_link navigation__link" href="/about/">Российские Студенческие Отряды</a>
+                                <a class="header_link navigation__link" href="/about/">Волгоградское Региональное
+                                    Отделение</a>
+                                <a class="header_link navigation__link" href="/about/contacts">Контакты</a>
+                                <a class="header_link navigation__link" href="/about/gallery">Галерея</a>
+                                <a class="header_link navigation__link" href="/about/news">Новости</a>
+                            </div>
+
+                            <input type="checkbox" name="acor" id="acor3" />
+                            <label for="acor3">Мероприятия</label>
+                            <div class="acor-body">
+                                <a class="header_link navigation__link" href="/events/">Поиск по категориям</a>
+                                <a class="header_link navigation__link" href="/events/">Календарь мероприятий</a>
+                                <a class="header_link navigation__link" href="/profile/events/">Мои мероприятия</a>
+                            </div>
+
+                            <input type="checkbox" name="acor" id="acor4" />
+                            <label for="acor4">Вступление</label>
+                            <div class="acor-body">
+                                <a class="header_link navigation__link" href="/joining/">Как вступить</a>
+                                <a class="header_link navigation__link" href="/joining/">Направления</a>
+                                <a class="header_link navigation__link" href="/joining/detachments/">Отряды</a>
+                            </div>
+
+                            <input type="checkbox" name="acor" id="acor5" />
+                            <label for="acor5">Трудоустройство</label>
+                            <div class="acor-body">
+                                <a class="header_link navigation__link" href="/employment/">Общая информация</a>
+                                <a class="header_link navigation__link" href="/employment/">Объекты</a>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+                {% if user.is_authenticated %}
+                <form action="/profile">
+                    <div class="header_right">
+                        <a class="header_link_lk" href="/profile/">Личный кабинет</a>
+                        {% if user.profile.photo %}
+                        <img class="header_photo" src="{{user.profile.photo.url}}" alt="аватарка">
+                        {% else %}
+                        <img class="header_photo" src="{% static 'img/Kat/profile/lk.png' %}" alt="аватарка">
+                        {% endif %}
+                    </div>
+                    <div class="burger_icon">
+                        <div class="container header__container">
+                            <div class="menu-burger_img">
+                                <img class="avatar_img" src="{% static 'img/Kat/profile/avatar.svg' %}" alt="avatar icon">
+                            </div>
+                            <nav class="header__nav">
+                                <ul class="menu header_menu topmenu">
+                                    <li><a href="/profile/" class="navigation__link">Профиль</a></li>
+                                    <li><a href="/profile/detachment/" class="navigation__link">Мой отряд</a></li>
+                                    <li><a href="/profile/events/" class="navigation__link">Мои мероприятия</a></li>
+                                    <li><a href="/profile/settings/" class="navigation__link">Настройки</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                <form action="/login">
+                    <button type="submit" class="singup_btn">Войти</button>
+                    <button type="submit" class="singup_btn_img"><img src="{% static 'img/Kat/profile/icon_btn.PNG' %}" alt=""></button>
+                </form>
+                {% endif %}
+
+            </div>
+        </div>
+    </header>
+
+        {% block content %}
+    <main class="main" style="height:30vh"><h1 style="max-width:1000px; margin:auto">Страница в разработке</h1></main>
+        {% endblock %}
+
+    <footer class="footer">
+        <div class="footer_wrap">
+            <div class="footer_contacts">
+                <h3 class="contacts_h3">Контакты</h3>
+                <ul>
+                    <li> <img src="{% static 'img/Kat/label.svg' %}" alt=""> <a href="https://yandex.ru/maps/-/CCUKuGTXdC"
+                            target="_blank">г. Волгоград, ул. Невская,
+                            д.6</a></li>
+                    <li><img src="{% static 'img/Kat/mail.svg' %}" alt=""> <a href="mailto:vlgrso@mail.ru">vlgrso@mail.ru</a></li>
+                    <li><img src="{% static 'img/Kat/phone.svg' %}" alt=""> <a href="tel:+78442338443">8(8442)33-84-43</a></li>
+                </ul>
+            </div>
+            <div class="footer_right">
+                <p class="footer_right_text">
+                    <span>Волгоградское региональное отделение</span>
+                    <span>Молодежной общероссийской общественной организации</span>
+                    <span>“Российские Студенческие Отряды”</span>
+                </p>
+                <div class="footer_right_social">
+                    <a href="https://vk.com/shtabrso_vlg" target="_blank"> <img class="footer_social_vk" src="{% static 'img/Kat/vk.svg' %}" alt="vk"> </a>
+                    <a href="https://t.me/shtabrso_vlg" target="_blank"> <img class="footer_social_tg" src="{% static 'img/Kat/telegram.svg' %}" alt="telegram">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/burger.js' %}"></script>
+</body>
+
+</html>

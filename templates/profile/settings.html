@@ -1,0 +1,131 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block head %}{% load static %}<link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock %}
+
+{% block content %}
+    <main class="main">
+{% load static %}
+        <!-- Навигация -->
+        <section class="section_wrap">
+            <div class="section_box">
+                <div class="navigation">
+                    <ul class="navigation_list">
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/">Профиль</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/detachment/">Мой отряд</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/events/">Мои мероприятия</a></li>
+                        <li class="navigation_item"><a class="navigation_link navigation_link_now" href="/profile/settings/">Настройки</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    {% if user.is_authenticated %}
+        <section>
+            <section class="section_wrap">
+                <div class="profile">
+
+                    <div class="profile_left">
+                        {% if user.profile.photo %}
+                            <img class="profile_left_img" src="{{user.profile.photo.url}}" alt="profile_photo">
+                        {% else %}
+                            <img class="profile_left_img" src="{% static 'img/profile/profile.svg' %}" alt="profile_photo">
+                        {% endif %}
+
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="profile_left_setting">
+                                <input class="setting_file" type="file" name="photo" accept="image/*" id="id_photo">
+                                <div class="setting_photo">Выбрать фотографию</div>
+                            </div>
+                            <div class="profile_left_setting">
+                                    <input class="setting_file" type="submit" title=" " size="15">
+                                    <div class="setting_photo">Сохранить изменения</div>
+                            </div>
+
+
+                            <div class="profile_left_exit">
+                                    <a href="/logout" class="profile_left_btn">Выйти из аккаунта</a>
+                            </div>
+                    </div>
+
+                    <div class="profile_right">
+                        <div class="profile_right_top">
+                            <h3 class="profile_name">Личная информация</h3>
+                        </div>
+                            <div class="setting_right_wrap">
+                                <h4 class="profile_subtitle">Фамилия</h4>
+                                <input class="setting_input" type="text" name="last_name" value="{{user.last_name}}" maxlength="150" id="last_name">
+                            </div>
+                            <div class="setting_right_wrap">
+                                <h4 class="profile_subtitle">Имя</h4>
+                                <input class="setting_input" type="text" name="first_name" value="{{user.first_name}}" maxlength="150" id="id_first_name">
+                            </div>
+                            <div class="setting_right_wrap">
+                                <h4 class="profile_subtitle">Отчество</h4>
+                                <input class="setting_input" type="text" name="patronymic" value="{{user.profile.patronymic}}" maxlength="20" id="id_patronymic">
+                            </div>
+                            <div class="setting_right_wrap">
+                                <h4 class="profile_subtitle">Электронная почта</h4>
+                                <input class="setting_input" type="email" name="email" value="{{user.email}}" maxlength="254" id="id_email">
+                            </div>
+                            <div class="setting_right_wrap">
+                                <h4 class="profile_subtitle">Номер телефона</h4>
+                                <input class="setting_input" placeholder="+7 (999) 999 99 99" type="tel" name="telephone" value="{{user.profile.telephone}}" maxlength="30" id="id_telephone">
+                            </div>
+                            <div class="setting_right_wrap">
+                                <h4 class="profile_subtitle">Ссылка на VK</h4>
+                                <input placeholder="https://vk.com/....." class="setting_input" type="text" name="link_vk" value="{{user.profile.link_vk}}" maxlength="50" id="id_link_vk">
+                            </div>
+                            <div class="setting_right_wrap">
+                                <h4 class="profile_subtitle">Учебное заведение</h4>
+
+                                <div class="setting_select">
+                                    {{ form.institution }}
+                                </div>
+                            </div>
+                            <div class="setting_right_wrap">
+                                <div class="setting_disabled">
+                                    <h4 class="profile_disabled">Отряд</h4>
+                                    <div class=" question_img question_img_post"
+                                        data-title="В отряд может добавить только командир отряда."><img
+                                            src="{% static 'img/profile/question.svg' %}" alt=""></div>
+                                </div>
+                                <div class="disabled_text">{{ user.profile.detachment|default:'' }}</div>
+                            </div>
+                            <div class="setting_right_wrap">
+                                <div class="setting_disabled">
+                                    <h4 class="profile_disabled">Должность</h4>
+                                    <div class="question_img"
+                                        data-title="Должность может назначить только командир отряда."><img
+                                            src="{% static 'img/profile/question.svg' %}" alt=""></div>
+                                </div>
+                                <div class="disabled_text">{{ user.profile.position|default:'' }}</div>
+                            </div>
+                            <div class="setting_right_wrap">
+
+
+                                <h4 class="profile_subtitle">О себе</h4>
+                                <textarea class="setting_textarea scroll" name="about" cols="40" rows="12" placeholder="Не более 400 символов." maxlength="400" id="id_about">{{user.profile.about}}</textarea>
+                            </div>
+                            <div class="setting_btn_wrap"><button type="submit" class="setting_btn">Сохранить изменения</button></div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+    {% else %}
+    <div class="header_signup">
+        <form action="/login">
+        <button type="submit" class="singup__btn">
+            <img src="{% static 'img/basic/button_icon.svg' %}" alt="" class="singup__icon">
+            Войти
+        </button>
+        </form>
+    </div>
+    {% endif %}
+
+    </main>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'layout/basic.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+{% block content %}
+    <main class="main">
+<!--        <div class="form_wrapper">
+            <h1 class="page_title">Регистрация</h1>
+
+            <form method="post" class="form">
+
+                <input type="submit" value="Зарегистрироваться">
+            </form>
+        </div>-->
+
+    <form class="main__form" method="post">
+        {% csrf_token %}
+        <h3 class="form__h3">Регистрация</h3>
+
+        <div style="color:red;">{{ form.non_field_errors }}</div>
+
+        <span class="form__wrap">
+            <div style="color:red;">{{ form.first_name.errors }}</div>
+            <label for="{{ form.first_name.id_for_label }}" class="form__label">Имя* </label>
+            <input type="text" name="first_name" id="id_first_name" class="form__input" value="{% if not form.first_name.value == None %}{{form.first_name.data}}{% endif %}" required>
+        </span>
+        <span class="form__wrap">
+            <div style="color:red;">{{ form.last_name.errors }}</div>
+            <label class="form__label">Фамилия*</label>
+            <input type="text" name="last_name" id="last_name" class="form__input" value="{% if not form.first_name.value == None %}{{form.last_name.data}}{% endif %}" required>
+        </span>
+
+        <span class="form__wrap">
+            <div style="color:red;">{{ form.email.errors }}</div>
+            <label class="form__label">Электронная почта*</label>
+            <input type="email" name="email" id="id_email" class="form__input" value="{% if not form.email.value == None %}{{form.email.data}}{% endif %}" required>
+        </span>
+
+        <span class="form__wrap">
+            <div style="color:red;">{{ form.telephone.errors }}</div>
+            <label class="form__label">Номер телефона*</label>
+            <input type="tel" name="telephone" id="id_telephone" class="form__input" value="{% if not form.telephone.value == None %}{{form.telephone.data}}{% endif %}" required>
+        </span>
+
+        <span class="form__wrap">
+            <div style="color:red;">{{ form.username.errors }}</div>
+            <label class="form__label">Логин*</label>
+            <input type="text" name="username" id="id_username" class="form__input" value="{% if not form.username.value == None %}{{form.username.data}}{% endif %}" required>
+            <p class="form__desc">Не более 15 символов. Только буквы, цифры и символы @/./+/-/_.</p>
+        </span>
+
+        <span class="form__wrap">
+            <div style="color:red;">{{ form.password.errors }}</div>
+            <label class="form__label">Пароль*</label>
+            <input type="password" name="password" id="id_password" class="form__input" required>
+            <p class="form__desc password__desc">
+                Пароль не должен быть слишком похож на другую вашу личную информацию, содержать минимум 8 символов.
+               <span>
+                Пароль не должен быть слишком простым и распространенным.
+                </span>
+                <span>
+                Пароль не может состоять только из цифр.
+                </span>
+            </p>
+        </span>
+
+        <span class="form__wrap">
+            <div style="color:red;">{{ form.repeat_password.errors }}</div>
+
+
+            <label class="form__label">Повтор пароля*</label>
+            <input type="password" name="repeat_password" id="id_repeat_password" class="form__input" required>
+            <p class="form__desc password__desc">
+                Для подтверждения пароля введите его ещё раз.
+            </p>
+        </span>
+
+        <span class="form__checkbox_wrapper">
+            <label for="form-checkbox" class="form__checkbox" id="label-form-checkbox">
+                <input type="checkbox" name="checkTrue" id="form-checkbox" onclick="checkBox()" >
+                <span class="checkbox__p">
+                    *Нажимая кнопку “Я с Вами!” , я даю свое согласие на обработку моих персональных
+                    данных, в соответствие с <a href="https://www.consultant.ru/document/cons_doc_LAW_61801/" target="_blank">
+                    “Федеральным законом от 27.07.2006 года №152-ФЗ “О персональных данных”</a>, на условиях и для целей,
+                    определенных в <a href="/agreements/">Согласии на обработку персональных данных</a>.
+                </span>
+            </label>
+        </span>
+
+        <input type="submit" id="form-submit" class="form__submit_btn" value="Я с Вами!" disabled="true">
+
+    </form>
+    </main>
+
+<script>
+    function checkBox(){
+        let button = document.getElementById("form-submit");
+        if(button.disabled) {
+        button.disabled = false;
+        } else {
+        button.disabled = true;
+        }
+
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'layout/basic.html' %}
+{% block title %}Профиль{% endblock %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js/slick/slick-theme.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'js/slick/slick.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/slick/slick.min.js' %}"></script>
+<style>
+</style>
+{% endblock %}
+
+{% block content %}
+    <main class="main">
+
+                <section class="section_wrap">
+            <div class="section_box">
+                <div class="navigation">
+                    <ul class="navigation_list">
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/">Профиль</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/detachment/">Мой отряд</a></li>
+                        <li class="navigation_item"><a class="navigation_link navigation_link_now" href="/profile/events/">Мои мероприятия</a></li>
+                        <li class="navigation_item"><a class="navigation_link" href="/profile/settings/">Настройки</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    {% if user.is_authenticated %}
+        <!-- Слайдер -->
+        <section class="slider_section">
+            <div class="slider_wrap">
+                <h2 class="slider_subtitle">Ближайшие мероприятия</h2>
+                <div class="slider_box">
+                    {% for mark in marks %}
+                    <div>
+
+                        <a class="slider_link" href="{% url 'event' event_id=mark.event.id %}">
+                            {% if mark.event.photo %}<img class="slider_img" src="{{mark.event.photo.url}}" alt="Фото предстоящего мероприятия">
+                            {% else %}<img class="slider_img" src="img/work.png" alt="Фото предстоящего мероприятия">
+                            {% endif %}
+                        </a>
+                        <div class="slider_data">{{mark.event.beginning_date}}</div>
+                        <div class="slider_text_events">{{mark.event.name}}</div>
+                        <img class="slider_dots" src="{% static 'img/profile/dots.svg' %}" alt="dots">
+
+                    </div>
+                    {% endfor%}
+                </div>
+            </div>
+            <a name="A"></a>
+        </section>
+
+        <!-- История -->
+        <section class="section_wrap">
+            <div class="history">
+                <div class="history_top">
+                    <h3 class="history_subtitle">История мероприятий</h3>
+
+                    <div class="select">
+                        <form action="" method="">
+                            <select class="history_select">
+                                <option selected="selected" value="sorting">Сортировка по</option>
+                                <option class="history_option" value="date">по дате</option>
+                                <option class="history_option" value="scale">по масштабу</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <div class="history_events scroll">
+                    {% for mark in marks %}
+                    <div class="history_events_wrap" >
+                        {% if mark.event.photo %}
+                        <a href="{% url 'event' event_id=mark.event.id %}"><img class="history_img" src="{{mark.event.photo.url}}" alt="Фото мероприятия"></a>
+                        {% else %}
+                        <a href="{% url 'event' event_id=mark.event.id %}"><img class="history_img" src="" alt="Фото мероприятия"></a>
+                        {% endif %}
+                    </div>
+                    {% endfor%}
+                </div>
+            </div>
+        </section>
+
+
+    <h1 class="page_title">Баллы</h1>
+<table>
+        <tr>
+            <td>Название мероприятия</td>
+            <td>Количество баллов</td>
+        </tr>
+    {% for mark in marks %}
+        {% if mark.confirmed%}
+        <tr>
+            <td>{{mark.event.name}}</td>
+            <td>{{mark.points}}</td>
+        </tr>
+        {% endif %}
+    {% endfor%}
+</table>
+    {% else %}
+    <div class="header_signup">
+        <form action="/login">
+        <button  type="submit" class="singup__btn">
+            <img src="{% static 'img/basic/button_icon.svg' %}" alt="" class="singup__icon">
+            Войти
+        </button>
+        </form>
+    </div>
+    {% endif %}
+
+    </main>
+    <script src="{% static 'js/slider_lk.js' %}"></script>
+
+{% endblock %}
