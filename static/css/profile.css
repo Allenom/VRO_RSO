@@ -559,15 +559,21 @@
 }
 
 .troop_btn_blue {
-  color: rgb(17, 8, 150);
+  /* color: rgb(17, 8, 150); */
   margin-right: 15px;
   margin-left: 15px;
   font-size: 14px;
   font-family: "Montserrat-Regular";
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  /* border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5); */
   background: none;
   cursor: pointer;
+  
+  padding: 2px; 
+  color:#EF6705; 
+  text-decoration: none; 
+  border: 1px solid #EF6705 ; 
+  border-radius: 10px;
 }
 
 .btn_wrap {

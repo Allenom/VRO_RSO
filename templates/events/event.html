@@ -13,7 +13,7 @@
 
         <section class="event_section">
             {% for admin in admin %}
-            <a href="{% url 'event_edit' pk=event.id %}" style="font-family: 'Montserrat-Regular';">РЕДАКТИРОВАТЬ</a>
+            <a href="{% url 'event_edit' pk=event.id %}" style="font-family: 'Montserrat-Regular';padding: 2px; color:#EF6705; text-decoration: none; border: 1px solid #EF6705 ; border-radius: 10px;">Редактировать мероприятие</a>
             {% endfor %}
             <div class="event__header">
                 <div class="header__left">

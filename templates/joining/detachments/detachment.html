@@ -13,7 +13,7 @@
 
 <section class="event_section">
     {% if detachment.commander.user.id == user.id %}
-    <a href="{% url 'detachment_edit' detachment_id=detachment.id %}" style="font-family: 'Montserrat-Regular';">РЕДАКТИРОВАТЬ</a>
+    <a href="{% url 'detachment_edit' detachment_id=detachment.id %}" style="font-family: 'Montserrat-Regular';padding: 2px; color:#EF6705; text-decoration: none; border: 1px solid #EF6705 ; border-radius: 10px;">Редактировать отряд</a>
     {% endif %}
     <div class="event__header">
         <div class="header__left">
