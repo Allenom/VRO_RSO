@@ -65,16 +65,10 @@
             </span>
             <form action="{% url 'event_take_part' event_id=detachment.id%}">
             {% if user.is_authenticated %}
-                {% if part|length < 1 %}
+                {% if not user.profile.detachment %}
                     <input type="submit" class="header__left__btn" value="Вступить в отряд">
                 {% else %}
-                    {% for part in part %}
-                        {% if part.deleted %}
-                            <input type="submit" class="header__left__btn" value="Участвовать">
-                        {% else %}
-                            <input type="submit" class="header__left__btn__on" value="Отменить участие">
-                        {% endif %}
-                    {% endfor %}
+
                 {% endif %}
             {% else %}
                 <a href="/login/" class="header__left__btn" style="text-decoration: none; display: block; text-align: center;">Войти в профиль</a>

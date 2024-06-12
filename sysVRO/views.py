@@ -132,7 +132,7 @@ def detachments_page(request):
 
 def detachment_page(request, detachment_id):
     detachment = Detachment.objects.filter(id=detachment_id)
-    detachment_members = Profile.objects.filter(id=1)
+    detachment_members = Profile.objects.filter(id=detachment_id)
     more = len(detachment_members)-5
     detachment_members = detachment_members[:5]
     context = {'detachment': detachment, 'detachment_members': detachment_members, 'more': more}
