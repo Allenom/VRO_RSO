@@ -48,6 +48,9 @@ class DetachmentUpdateForm(forms.ModelForm):
             'link_vk',
             'about',
         )
+        widgets = {
+            'about': forms.Textarea(attrs={'rows': 6}),
+        }
 
 
 class PartCreateForm(forms.ModelForm):
@@ -67,7 +70,8 @@ class EventForm(forms.ModelForm):
         model = Event
         fields = ('name', 'title', 'scale', 'form', 'kind', 'beginning_date', 'beginning_time', 'ending_date',
                   'photo', 'content', 'place', 'organizer', 'contact', 'admin')
-        widgets = {'title': forms.Textarea(attrs={'rows': 4}),
-                   'kind': forms.SelectMultiple(attrs={'style': 'height:100px'}),
-                   'admin': forms.SelectMultiple(attrs={'style': 'height:200px'}),
-                   }
+        widgets = {
+            'title': forms.Textarea(attrs={'rows': 4}),
+            'kind': forms.SelectMultiple(attrs={'style': 'height:100px'}),
+            'admin': forms.SelectMultiple(attrs={'style': 'height:200px'}),
+        }

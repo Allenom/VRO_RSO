@@ -1,0 +1,64 @@
+{% extends 'layout/basic.html' %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/detachment_edit.css' %}">
+{% endblock %}
+
+{% block title %}Мой отряд{% endblock %}
+
+{% block content %}
+    <main class="main">
+
+        <!-- Отряд -->
+
+        {% for detachment in detachment%}
+        <section class="section_wrap">
+            <div class="troop_wrap">
+                <div class="troop_top">
+                    <div class="troop_top_left">
+                        <div class="troop_name">{{ detachment.area.abbreviation }} «{{ detachment.name }}»</div>
+                        <div class="troop_text">{{ detachment.area.name }}</div>
+                    </div>
+                    <div class="troop_top_right">
+                        <a target="_blank" class="profile_social_link" href="{{ detachment.link_vk }}" rel="nofollow"><img src="{% static 'img/profile/vk_blue.svg' %}" alt="vk"></a>
+                        {% if detachment.emblem %}
+                        <img class="troop_top_img_icon" src="{{ detachment.emblem.url }}" alt="icon">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="troop_description">
+                    <div>
+                        <div class="troop_box">
+                            <h4 class="squad_subtitle">Учебное заведение</h4>
+                            <div class="lk_text">{{detachment.institution}}</div>
+                        </div>
+                        <div class="troop_box">
+                            <h4 class="squad_subtitle">Об отряде</h4>
+                            <p class="lk_text">{{detachment.about|linebreaksbr}}</p>
+                        </div>
+                    </div>
+                    <div>
+                        {% if detachment.flag %}
+                        <img style="width:200px" src="{{ detachment.flag.url }}" alt="">
+                        {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <h1 class="page_title">Редактирование</h1>
+                    <form method="post" enctype="multipart/form-data" class="edit_detachment_form">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" value="Сохранить изменения" class="edit_detachment_btn">
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    {% endfor %}
+
+
+
+    </main>
+
+<script src="{% static 'js/modal_personal.js' %}"></script>
+{% endblock %}

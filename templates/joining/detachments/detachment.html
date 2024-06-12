@@ -1,26 +1,238 @@
 {% extends 'layout/basic.html' %}
 
 {% block title %}Отряд{% endblock %}
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/detachment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal_profile.css' %}">
+{% endblock %}
 
 {% block content %}
     <main class="main">
 {% for detachment in detachment %}
-        <h1 class="page_title">Отряд {{detachment.name}}</h1>
-    <p>Направление:</p>
-    <p>{{detachment.area}}</p>
-    <p>Учебное заведение:</p>
-    <p>{{detachment.institution}}</p>
-    {% if detachment.flag %}
-        <img style="height: 300px" class="article_img" src="{{ detachment.flag.url }}" alt="Флаг отряда">
+
+<section class="event_section">
+    {% if detachment.commander.user.id == user.id %}
+    <a href="{% url 'detachment_edit' detachment_id=detachment.id %}" style="font-family: 'Montserrat-Regular';">РЕДАКТИРОВАТЬ</a>
     {% endif %}
-    {% if detachment.emblem %}
-        <img style="height: 100px" class="article_img" src="{{ detachment.emblem.url }}" alt="Эмблема отряда">
-    {% endif %}
-    <p>Ссылка ВК:</p>
-    <p>{{detachment.link_vk}}</p>
-    <p>Командир:</p>
-    <p>{{detachment.commander.user.first_name}} {{detachment.commander.user.last_name}}</p>
-    <a href="#" >Вступить</a>
+    <div class="event__header">
+        <div class="header__left">
+            <h2 class="header__left__h2">{{ detachment.area.abbreviation }} «{{ detachment.name }}»</h2>
+            <span class="header__left_wrap">
+                <span class="span_tag">
+                    {{detachment.area.name}}
+                </span>
+            </span>
+            <span class="header__left_data">
+                <img src="{% static 'img/event/place_icon.svg' %}" alt="Образовательная организация">
+                <h4 class="data__h4">
+                    {{ detachment.institution }}
+                </h4>
+            </span>
+            <a href="{{detachment.link_vk}}" target="_blank">
+            <span class="header__left_data">
+                
+                    <img style="width: 20px;" src="{% static 'img/detachments/vk_logo_blue.png' %}" alt="Ссылка на ВК">
+                    <h4 class="data__h4">
+                        {{detachment.link_vk}}
+                    </h4>
+                
+            </span>
+        </a>
+
+            <!-- <span class="header__left_data2">
+                <h3 class="data2__h3">Организатор </h3>
+                <span class="data2_wrap">
+                    <p class="data2_wrap__p">
+                        {{ detachment.organizer }}
+                    </p>
+                </span>
+            </span> -->
+
+            <span class="header__left_data2">
+                <h3 class="data2__h3">Командир </h3>
+                <span class="data2_wrap" onclick='openThis(1)'>
+                    {% if detachment.commander.photo %}
+                        <img class="data2_wrap__img" src="{{ detachment.commander.photo.url }}" alt="Фото профиля">
+                        {% else %}
+                    <img src="{% static 'img/profile/profile.svg' %}" alt="Иконка профиля" class="data2_wrap__img">
+                    {% endif %}
+                    <p class="data2_wrap__p">
+                        {{ detachment.commander.user.last_name|default:''  }} {{ detachment.commander.user.first_name|default:''  }} {{ detachment.commander.patronymic|default:''  }}
+                    </p>
+                    <img class="data2_wrap__img2" onclick='openThis(1)' src="{% static 'img/profile/profile.svg' %}" alt="Кнопка профиля">
+                </span>
+            </span>
+            <form action="{% url 'event_take_part' event_id=detachment.id%}">
+            {% if user.is_authenticated %}
+                {% if part|length < 1 %}
+                    <input type="submit" class="header__left__btn" value="Вступить в отряд">
+                {% else %}
+                    {% for part in part %}
+                        {% if part.deleted %}
+                            <input type="submit" class="header__left__btn" value="Участвовать">
+                        {% else %}
+                            <input type="submit" class="header__left__btn__on" value="Отменить участие">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                <a href="/login/" class="header__left__btn" style="text-decoration: none; display: block; text-align: center;">Войти в профиль</a>
+            {% endif %}
+            </form>
+        </div>
+
+        <!--right part-->
+        <div class="header__right">
+
+            {% if detachment.flag %}
+                <img class="header__right_img" src="{{ detachment.flag.url }}" alt="Изображение мероприятия">
+            {% else %}
+                <img class="header__right_img" src="{% static 'img/detachments/logo_full_rso.png' %}">
+            {% endif %}
+
+            <div class="header__right__block__all">
+                <div class="header__right__block">
+                    <h3 class="data2__h3 block__h3">
+                        Участники
+                    </h3>
+                    <span class="block__wrap">
+                        {% if more == -5 %}
+                        <img src="{% static 'img/profile/profile.svg' %}" alt="user image" class="block__wrap_img">
+                        {% endif %}
+                        {% for detachment_member in detachment_members %}
+                            {% if detachment_member.photo %}
+                        <img src="{{ detachment_member.photo.url }}" alt="фото профиля" class="block__wrap_img">
+                            {% else %}
+                        <img src="{% static 'img/profile/profile.svg' %}" alt="user image" class="block__wrap_img">
+                            {% endif %}
+                        {% endfor %}
+                        {% if more > 0 %}
+                        <p class="block__wrap_p data2_wrap__p">и ещё <span class="block__wrap_p_span">{{more}}</span></p>
+                        {% endif %}
+                    </span>
+
+                </div>
+                <div class="header__right__block">
+                    <p class="data2__h3 block__h3">
+                        Поделиться
+                    </p>
+                    <span class="block__wrap style2">
+                        <a href="http://vk.com/share.php?url=http://91.210.168.65:8000/joining/detachments/{{detachment.id}}/" target="_blank" rel="nofollow"
+                           onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">
+                                <img src="{% static 'img/event/VK_white.svg' %}" alt="vk" class="block__wrap_img2">
+                        </a>
+                        <a href="https://t.me/share/url?url=http://91.210.168.65:8000/joining/detachments/{{detachment.id}}/" target="_blank" rel="nofollow">
+                            <img src="{% static 'img/event/Telegramm_white.svg' %}" alt="tg" class="block__wrap_img2">
+                        </a>
+                        <a href="https://api.whatsapp.com/send?text=http://91.210.168.65:8000/joining/detachments/{{detachment.id}}/" target="_blank" rel="nofollow">
+                            <img src="{% static 'img/event/WhatsApp_white.svg' %}" alt="wa" class="block__wrap_img2">
+                        </a>
+                        <a href="" >
+                            <img src="{% static 'img/event/content_copy_white.svg' %}" alt="copy" class="block__wrap_img2" id="copy_button">
+                        </a>
+                        <p id="link_field" style="display: none;">http://91.210.168.65:8000/joining/detachments/{{detachment.id}}/</p>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--part description event-->
+    <div class="event__main">
+        <h2 class="main__h2">
+            Об отряде
+        </h2>
+
+        <div class="main__wrapper">
+            <h3 class="main__wrapper_h3">
+                {{detachment.about|linebreaksbr}}
+            </h3>
+            <div class="main__wrapper_images">
+                {% if detachment.emblem %}
+                <img class="main__wrapper_images_item" src="{{ detachment.emblem.url }}" alt="Эмблема отряда">
+                {% else %}
+                <img class="main__wrapper_images_item" src="{% static 'img/event/event_img.png' %}" alt="Эмблема отряда">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="modal" id="modal1">
+    <div class="modal_wrapper">
+        <div class="modal_wrap">
+            <div class="modal_wrap_img">
+                {% if detachment.commander.photo %}
+                            <img class="modal_img" src="{{ detachment.commander.photo.url }}" alt="Фото профиля">
+                            {% else %}
+                            <img class="modal_img" src="{% static 'img/profile/profile.svg' %}" alt="Иконка профиля">
+                            {% endif %}
+
+            </div>
+            <div class="modal_right">
+                <div class="modal_right_top">
+                    <h3 class="modal_name">{{ detachment.commander.user.last_name|default:''  }} {{ detachment.commander.user.first_name|default:''  }} {{ detachment.commander.patronymic|default:''  }}</h3>
+                    <a class="modal_social_link" href="{{detachment.commander.link_vk}}" target="_blank" rel="nofollow"><img src="{% static 'img/profile/vk_blue.svg' %}" alt="vk"></a>
+                </div>
+                <div class="modal_right_info">
+                    <div>
+                        <div class="modal_right_wrap">
+                            <h4 class="modal_subtitle">Учебное заведение</h4>
+                            <div class="modal_text">{{ detachment.commander.institution|default:''}}</div>
+                        </div>
+                        <div class="modal_right_wrap">
+                            <h4 class="modal_subtitle">Отряд</h4>
+                            <div class="modal_text">{{ detachment.commander.detachment}}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="modal_right_wrap">
+                            <h4 class="modal_subtitle">Должность</h4>
+                            <div class="modal_text">{{detachment.commander.position_output}}</div>
+                        </div>
+                        <div class="modal_right_wrap">
+                            <h4 class="modal_subtitle">Элекронная почта</h4>
+                            <div class="modal_text">{{detachment.commander.user.email}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal_right_wrap">
+                    <h4 class="modal_subtitle">О себе</h4>
+                    <p class="modal_text">
+                        {{detachment.commander.about|linebreaksbr}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="close_wrap">
+            <button type="button" class="close_btn">
+                <img src="{% static 'img/profile/cross.png' %}" alt="cross_close" class="close_wrap_img">
+            </button>
+        </div>
+    </div>
+</section>
 {% endfor %}
     </main>
+
+    <script src="{% static 'js/modal_personal.js' %}"></script>
+    <script>
+          function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+          }
+
+          // copy coupone code to clipboard
+          $("#copy_button").on("click", function() {
+            copyToClipboard("#link_field");
+            // $(".coupon-alert").fadeIn("slow");
+          });
+
+    </script>
 {% endblock %}

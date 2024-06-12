@@ -13,7 +13,7 @@
 
         <section class="event_section">
             {% for admin in admin %}
-            <a href="{% url 'event_edit' pk=event.id %}">РЕДАКТИРОВАТЬ</a>
+            <a href="{% url 'event_edit' pk=event.id %}" style="font-family: 'Montserrat-Regular';">РЕДАКТИРОВАТЬ</a>
             {% endfor %}
             <div class="event__header">
                 <div class="header__left">
@@ -59,7 +59,7 @@
 
                     <span class="header__left_data2">
                         <h3 class="data2__h3">Контакт организатора </h3>
-                        <span class="data2_wrap" onclick='openThis(1)'>
+                        <span class="data2_wrap" onclick='openThis(1)' style="cursor: pointer;">
                             {% if contact.photo %}
                                 <img class="data2_wrap__img" src="{{ contact.photo.url }}" alt="Фото профиля">
                                 {% else %}
@@ -126,20 +126,20 @@
                                 Поделиться
                             </p>
                             <span class="block__wrap style2">
-                                <a href="http://vk.com/share.php?url=http://92.255.78.40:8000/events/{{event.id}}/" target="_blank" rel="nofollow"
+                                <a href="http://vk.com/share.php?url=http://91.210.168.65:8000/events/{{event.id}}/" target="_blank" rel="nofollow"
                                    onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">
                                         <img src="{% static 'img/event/VK_white.svg' %}" alt="vk" class="block__wrap_img2">
                                 </a>
-                                <a href="https://t.me/share/url?url=http://92.255.78.40:8000/events/{{event.id}}/" target="_blank" rel="nofollow">
+                                <a href="https://t.me/share/url?url=http://91.210.168.65:8000/events/{{event.id}}/" target="_blank" rel="nofollow">
                                     <img src="{% static 'img/event/Telegramm_white.svg' %}" alt="tg" class="block__wrap_img2">
                                 </a>
-                                <a href="https://api.whatsapp.com/send?text=http://92.255.78.40:8000/events/{{event.id}}/" target="_blank" rel="nofollow">
+                                <a href="https://api.whatsapp.com/send?text=http://91.210.168.65:8000/events/{{event.id}}/" target="_blank" rel="nofollow">
                                     <img src="{% static 'img/event/WhatsApp_white.svg' %}" alt="wa" class="block__wrap_img2">
                                 </a>
                                 <a href="" >
                                     <img src="{% static 'img/event/content_copy_white.svg' %}" alt="copy" class="block__wrap_img2" id="copy_button">
                                 </a>
-                                <p id="link_field" style="display: none;">http://92.255.78.40:8000/events/{{event.id}}/</p>
+                                <p id="link_field" style="display: none;">http://91.210.168.65:8000/events/{{event.id}}/</p>
                             </span>
 
                         </div>
@@ -159,11 +159,11 @@
                     <h3 class="main__wrapper_h3">
                         {{event.title}}
                     </h3>
-                    <div class="main__wrapper_images">
+                    <!-- <div class="main__wrapper_images">
                         <img class="main__wrapper_images_item" src="{% static 'img/event/event_img.png' %}" alt="">
                         <img class="main__wrapper_images_item" src="{% static 'img/event/event_img.png' %}" alt="">
                         <img class="main__wrapper_images_item" src="{% static 'img/event/event_img.png' %}" alt="">
-                    </div>
+                    </div> -->
 
                 </div>
 

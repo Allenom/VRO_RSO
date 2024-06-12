@@ -158,6 +158,7 @@ class Detachment(models.Model):
 
 class Area(models.Model):
     name = models.CharField(max_length=50, db_index=True, verbose_name='Название')
+    abbreviation = models.CharField(max_length=50, db_index=True, null=True, verbose_name='Аббревиатура')
 
     def __str__(self):
         return self.name

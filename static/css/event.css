@@ -12,6 +12,50 @@
     background-repeat: repeat;
     background-position: unset;
 }
+
+  /* Редактировать */
+
+  .edit_event_form p {
+    font-family: "Montserrat-Regular";
+    font-size: 18px;
+    padding: 5px 0;
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .edit_event_form p input:not([type="checkbox"]), .edit_event_form p textarea, .edit_event_form p select{
+    font-family: "Montserrat-Regular";
+    font-size: 14px;
+    width: 100%;
+    padding: 4px;
+    border:1px solid #526bcee9;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .edit_event_btn {
+    background: #ef6705;
+    color: rgb(244, 244, 244);
+    border-radius: 50px;
+    max-width: 355px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat-Regular";
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .edit_event_btn:hover {
+    background: #f86902;
+    color: rgb(255, 255, 255);
+  }
+
+
 .event_section {
     max-width: 1200px;
     margin: auto;
@@ -263,7 +307,7 @@
     margin-bottom: 29px;
 }
 .main__wrapper_h3 {
-    width: 465px;
+    /* width: 465px; */
     font-family: 'Montserrat-Regular';
     font-weight: 500;
     font-size: 28px;

@@ -46,7 +46,7 @@ function closeWindow() {
 
 // Модальное окно обратной связи
 
-const openB = document.querySelector(".btn_wrap"); // кнопка открытия
+const openB = document.querySelector(".troop_btn"); // кнопка открытия
 const closeB = document.querySelector("#close_btn_feedback"); // кнопка закрытия
 const modalO = document.querySelector("#modal_feedback"); // модальное окно
 

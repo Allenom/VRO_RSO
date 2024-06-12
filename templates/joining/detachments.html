@@ -1,28 +1,82 @@
 {% extends 'layout/basic.html' %}
 
 {% block title %}Отряды{% endblock %}
+{% block head %}{% load static %}<link rel="stylesheet" href="{% static 'css/detachments.css' %}">{% endblock %}
 
 {% block content %}
     <main class="main">
-            <h1 class="page_title">Отряды</h1>
-{% for detachment in detachments %}
-    <p>Название</p>
-    <p>{{detachment.name}}</p>
-    <p>Направление</p>
-    <p>{{detachment.area}}</p>
-    <p>Учебное заведение</p>
-    <p>{{detachment.institution}}</p>
-    {% if detachment.flag %}
-        <img style="height: 300px" class="article_img" src="{{ detachment.flag.url }}" alt="Флаг отряда">
-    {% endif %}
-    {% if detachment.emblem %}
-        <img style="height: 100px" class="article_img" src="{{ detachment.emblem.url }}" alt="Эмблема отряда">
-    {% endif %}
-    <p>Ссылка ВК</p>
-    <p>{{detachment.link_vk}}</p>
-    <p>Командир</p>
-    <p>{{detachment.commander.user.first_name}} {{detachment.commander.user.last_name}}</p>
-    <a href="{% url 'detachment' detachment_id=detachment.id%}" class="singup__btn" style="display: block; max-width: 110px">Подробнее</a>
-{% endfor %}
+        <section class="line_up_wrapper"><!--Верхний блок-->
+            <div class="line_up">
+                <form class="search_form">
+                    <button type="submit" class="search_button"></button>
+                    <input type="text" class="search_area" placeholder="Поиск отрядов">
+                </form>
+
+                <div class="line_up_select_container">
+                    <div class="line_up_select_left">
+                        <select class="select_filter_area" name="format">
+                            <option value="">Направление</option>
+                            {% for area in areas %}
+                                <option value="{{area.name}}">{{area.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <select class="select_filter_area" name="format">
+                            <option value="">Учебное заведение</option>
+                            {% for institution in institutions %}
+                                <option value="{{institution.name}}">{{institution.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="cancel_filters_button">
+                            <img class="cancel_image" src="{% static 'img/events/close1.png' %}">
+                            <p class="cancel_text">Сбросить фильтры</p>
+                        </button>
+                    </div>
+                    <div class="line_up_select_right">
+                        <select class="select_filter" name="filter">
+                            <option value="">Сортировать по</option>
+                            <option value="">Актуальности</option>
+                            <option value>Популярности</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="list_block"><!--Нижний блок, список мероприятий-->
+
+
+            {% for detachment in detachments %}
+            <div class="event_card">
+                <a href="{% url 'detachment' detachment_id=detachment.id%}" class="event_card_image_wrapper">
+                    {% if detachment.flag %}
+                    <img class="event_card_image" src="{{detachment.flag.url}}">
+                    {% else %}
+                    <img class="event_card_image" src="{% static 'img/detachments/logo_full_rso.png' %}">
+                    {% endif %}
+                </a>
+                <div class="event_container">
+                    <div class="event_card_filter_container">
+                        <div class="event_card_filter">
+                            <p class="event_card_filter_text">{{detachment.area.name}}</p>
+                        </div>
+                    </div>
+
+                    <a href="{% url 'detachment' detachment_id=detachment.id%}" class="event_card_name">{{detachment.area.abbreviation}} «{{detachment.name}}»</a>
+                    <div>Командир: {{detachment.commander.user.first_name|default:''}} {{detachment.commander.user.last_name|default:''}}</div>
+                    <div class="event_card_place">
+                        <img class="event_card_small_pic" src="{% static 'img/events/direction_gps.png' %}" alt="">
+                        <p class="event_card_info_text">{{detachment.institution}}</p>
+                    </div>
+                    <a href="{{detachment.link_vk}}" target="_blank">
+                        <div class="event_card_time">
+                            <img class="event_card_small_pic" src="{% static 'img/detachments/vk_logo_blue.png' %}" alt="">
+                            <p class="event_card_info_text">{{detachment.link_vk}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </section>
     </main>
 {% endblock %}

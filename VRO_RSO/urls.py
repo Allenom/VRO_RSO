@@ -20,7 +20,7 @@ from django.urls import path, include
 import sysVRO.views
 from VRO_RSO import settings
 from sysVRO.views import index_page, events_page, profile_page, ProfileEditView, detachments_page, detachment_page, \
-    joining_page, profile_events_page, DetachmentUpdateView, about_page, coming_soon_page, page_404, agreements_page
+    joining_page, profile_events_page, DetachmentUpdateView, about_page, coming_soon_page, page_404, agreements_page, logout_view
 from django.contrib.auth.views import LoginView, LogoutView
 from sysVRO.views import SignUp
 
@@ -30,7 +30,7 @@ urlpatterns = [
     path('home/', index_page),
     # path('', include('django.contrib.auth.urls')),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', logout_view, name='logout'),
     path("signup/", SignUp.as_view(), name='signup'),
 
     path("agreements/", agreements_page, name='agreements'),
@@ -56,6 +56,7 @@ urlpatterns = [
     path("joining/", joining_page, name='joining'),
     path("joining/detachments/", detachments_page, name='detachments'),
     path("joining/detachments/<int:detachment_id>/", detachment_page, name='detachment'),
+    path("joining/detachments/<int:detachment_id>/edit", sysVRO.views.DetachmentUpdateView1.as_view(), name='detachment_edit'),
 
     path("404/", page_404, name='404'),
 ]

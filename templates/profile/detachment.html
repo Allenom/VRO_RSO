@@ -30,7 +30,7 @@
             <div class="troop_wrap">
                 <div class="troop_top">
                     <div class="troop_top_left">
-                        <div class="troop_name">{{ detachment.name }}</div>
+                        <div class="troop_name">{{ detachment.area.abbreviation }} «{{ detachment.name }}»</div>
                         <div class="troop_text">{{ detachment.area.name }}</div>
                     </div>
                     <div class="troop_top_right">
@@ -155,7 +155,14 @@
                     {% endfor %}
 
                 </div>
-                <div class="btn_wrap"><button type="button" class="troop_btn">Покинуть отряд</button></div>
+                <div class="btn_wrap">
+                    <button type="button" class="troop_btn ">Покинуть отряд</button>
+                    {% if detachment.commander.user.id == user.id %}
+                    <form action="{% url 'detachment_edit' detachment_id=detachment.id %}"">
+                        <button type="submit" class="troop_btn_blue" >Редактировать отряд</button>
+                    </form>
+                    {% endif %}
+                </div>
             </div>
         </section>
 
@@ -195,7 +202,7 @@
             </div>
         </section>
         <!-- Второе окно обратной связи конец-->
-
+        {% comment %}
         {% if detachment.commander.user.id == user.id %}
         <h1 class="page_title">Для командира</h1>
             {% if detachment.flag %}
@@ -211,6 +218,7 @@
                 <input type="submit" value = "Изменить">
             </form>
         {% endif %}
+        {% endcomment %}
 
         {% for member in members %}
         <section class="modal" id="modal{{member.id}}">

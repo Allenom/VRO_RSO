@@ -548,7 +548,20 @@
 
 .troop_btn {
   margin-right: 15px;
+  margin-left: 15px;
   color: rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  font-family: "Montserrat-Regular";
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  background: none;
+  cursor: pointer;
+}
+
+.troop_btn_blue {
+  color: rgb(17, 8, 150);
+  margin-right: 15px;
+  margin-left: 15px;
   font-size: 14px;
   font-family: "Montserrat-Regular";
   border: none;
@@ -559,7 +572,8 @@
 
 .btn_wrap {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  flex-direction: row-reverse;
 }
 
 .troop_fighters_amount {
@@ -905,6 +919,11 @@
 }
 
 .troop_btn:hover {
+  color: #ef6705;
+  border-bottom: 1px solid #ef6705;
+}
+
+.troop_btn_blue:hover {
   color: #ef6705;
   border-bottom: 1px solid #ef6705;
 }

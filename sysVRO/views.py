@@ -10,10 +10,11 @@ from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
+from django.contrib.auth import logout
 
 from .forms import CreateUserForm, ProfileEditForm, UserEditForm, DetachmentUpdateForm, PartCreateForm, PartUpdateForm, \
     EventForm
-from .models import Event, Profile, Detachment, Mark
+from .models import Event, Profile, Detachment, Mark, Area, Institution
 
 
 def index_page(request):
@@ -122,14 +123,19 @@ def joining_page(request):
 
 
 def detachments_page(request):
-    events = Detachment.objects.all
-    context = {'detachments': events}
+    detachments = Detachment.objects.all
+    areas = Area.objects.all
+    institutions = Institution.objects.all
+    context = {'detachments': detachments, 'areas': areas, 'institutions': institutions,}
     return render(request, 'joining/detachments.html', context)
 
 
 def detachment_page(request, detachment_id):
     detachment = Detachment.objects.filter(id=detachment_id)
-    context = {'detachment': detachment}
+    detachment_members = Profile.objects.filter(id=1)
+    more = len(detachment_members)-5
+    detachment_members = detachment_members[:5]
+    context = {'detachment': detachment, 'detachment_members': detachment_members, 'more': more}
     return render(request, 'joining/detachments/detachment.html', context)
 
 
@@ -193,6 +199,51 @@ class DetachmentUpdateView(LoginRequiredMixin, UpdateView):
             else:
                 return self.render_to_response(context)
         return super(DetachmentUpdateView, self).form_valid(form)
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile.detachment
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.profile.detachment:
+            detachment = Detachment.objects.filter(id=self.request.user.profile.detachment.id)
+            members = self.request.user.profile.detachment.profile_set
+            commander = members.filter(position='Командир')
+            commissar = members.filter(position='Комиссар')
+            secretary = members.filter(position='Мастер-методист')
+            specialists = members.filter(position='Специалист')
+            warriors = members.filter(position='', membership_fee=True)
+            candidates = members.filter(position='', membership_fee=False)
+            count = members.count()
+            members = members.filter()
+            context.update({'detachment': detachment, 'commander': commander, 'commissar': commissar,
+                            'secretary': secretary, 'specialists': specialists, 'warriors': warriors,
+                            'candidates': candidates, 'count': count, 'members': members})
+            return context
+        else:
+            return context
+        
+class DetachmentUpdateView1(LoginRequiredMixin, UpdateView):
+    login_url = "/login/"
+
+    template_name = 'joining/detachments/edit.html'
+    form_class = DetachmentUpdateForm
+    success_url = reverse_lazy('profile_detachment')
+
+    model = Detachment
+
+    # @method_decorator(login_required(login_url='login'))
+    # def dispatch(self, request, *args, **kwargs):
+    #     super(DetachmentUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        with transaction.atomic():
+            if form.is_valid():
+                form.save()
+            else:
+                return self.render_to_response(context)
+        return super(DetachmentUpdateView1, self).form_valid(form)
 
     def get_object(self, queryset=None):
         return self.request.user.profile.detachment
@@ -297,3 +348,6 @@ def page_404(request):
 def agreements_page(request):
     return render(request, 'agreements.html')
 
+def logout_view(request):
+    logout(request)
+    return redirect('/login')

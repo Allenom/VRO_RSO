@@ -500,7 +500,8 @@
     }
    .line_up_select_container {
         flex-wrap: wrap;
- /*        display: grid;
+    /*
+        display: grid;
         grid-template-columns: repeat(2,auto);
         grid-row-start: auto;
         flex-direction: row;
@@ -514,7 +515,8 @@
         grid-row-start: auto;
         justify-content: space-between;
         max-width: 330px;
-    }*/
+    */
+    }
     .list_block
     {
         display: grid;
