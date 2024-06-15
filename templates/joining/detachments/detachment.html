@@ -66,7 +66,7 @@
             <form action="{% url 'event_take_part' event_id=detachment.id%}">
             {% if user.is_authenticated %}
                 {% if not user.profile.detachment %}
-                    <input type="submit" class="header__left__btn" value="Вступить в отряд">
+                    <input type="button" class="header__left__btn" value="Вступить в отряд">
                 {% else %}
 
                 {% endif %}
