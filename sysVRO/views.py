@@ -47,7 +47,10 @@ class EventCreateView(CreateView):
 
 def event_page(request, event_id):
     event = Event.objects.filter(id=event_id)
-    admin = event[0].admin.filter(id=request.user.profile.id)
+    if hasattr(request.user, 'profile'):
+        admin = event[0].admin.filter(id=request.user.profile.id)
+    else:
+        admin = []
     contact = event[0].contact
     part = {}
     if request.user.is_authenticated:
